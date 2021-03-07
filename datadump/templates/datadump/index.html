@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>BiblioStack</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-<body>
+{% extends 'datadump/base.html' %}
+{% block title %}BiblioStack | Home{% endblock %}
+{% block content %}
 
-
-<div class="jumbotron text-center">
-  <h1>Users</h1>
-  <p>Want to register? <a href="/register">Click here.</a></p>
-</div>
-  
-<div class="container">
-  <div class="row">
-    {% for item in users %}
-    <div class="col-sm-4">
-        <h3>{{item.name}} {{item.last_name}}</h3>
-        <p>{{item.email}}</p>
-      </div>
-    {% endfor %}
+  <div class="jumbotron text-center">
+    <h1>BiblioStack | Home</h1>
   </div>
-</div>
 
-</body>
-</html>
+{% endblock %}
