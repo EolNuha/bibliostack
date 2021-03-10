@@ -19,6 +19,7 @@ from datadump import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('datadump/', views.home),
+    path('posts/<int:page>', views.posts),
 ]
 
