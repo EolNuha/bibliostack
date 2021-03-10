@@ -1,0 +1,55 @@
+{% extends 'datadump/base.html' %}
+{% block title %}BiblioStack | Posts{% endblock %}
+{% block content %}
+
+  <div class="jumbotron text-center">
+    <h1>BiblioStack | Posts</h1>
+  </div>
+<div class="container">
+  <div class="row">
+    {% for item in page_obj %}
+    <div class="col-sm-4">
+        <h3>{{item}}</h3>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="/posts/{{page_obj.previous_page_number}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    {% endif %}
+      <li class="page-item">
+          <a class="page-link">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+          </a>
+        </li>
+    {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="/posts/{{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{#{% extends 'datadump/base.html' %}#}
+{#{% block title %}Post{% endblock %}#}
+{#{% block content %}#}
+{##}
+{#  <div class="jumbotron text-center">#}
+{#    <h1>BiblioStack | Home</h1>#}
+{#  </div>#}
+{##}
+{#{% endblock %}#}
+{% extends 'datadump/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header">
+                Create new task
+            </div>
+            <div class="card-body">
+                <form action="{% url 'posts' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    Save
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        {% if posts %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

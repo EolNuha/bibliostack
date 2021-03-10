@@ -17,8 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from datadump import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+<<<<<<< HEAD
+    path('datadump/', views.home),
+    path('posts/<int:page>', views.posts),
+=======
+    path('datadump/', include('datadump.urls')),
+>>>>>>> a82a82e (add models and post)
 ]
 

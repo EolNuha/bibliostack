@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'datadump.apps.DatadumpConfig',
+
+
 ]
 
 MIDDLEWARE = [
@@ -77,9 +79,9 @@ WSGI_APPLICATION = 'bibliostack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysite',
+        'NAME': 'library',
         'USER': 'root',
-        'PASSWORD': 'Eolnuha22!',
+        'PASSWORD': 'Hotmail',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
