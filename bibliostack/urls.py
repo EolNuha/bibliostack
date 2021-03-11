@@ -20,11 +20,6 @@ from datadump import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    path('datadump/', views.home),
-    path('posts/<int:page>', views.posts),
-=======
     path('datadump/', include('datadump.urls')),
->>>>>>> a82a82e (add models and post)
 ]
 

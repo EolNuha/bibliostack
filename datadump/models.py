@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-# Create your models here.
+
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
@@ -13,7 +13,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=54)
 
-    class Meta():
+    class Meta:
         ordering = ('-publish',)
 
     def __str__(self):
