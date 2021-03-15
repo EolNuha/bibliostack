@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from datadump import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('datadump/', views.home),
-    path('posts/<int:page>', views.posts),
+    path('datadump/', include('datadump.urls', namespace='datadump')),
 ]
-
