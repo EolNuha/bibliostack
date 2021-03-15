@@ -4,9 +4,9 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=200)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datadump_posts')
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -19,8 +19,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=70)
     email = models.EmailField()
     body = models.TextField()

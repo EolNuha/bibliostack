@@ -1,0 +1,14 @@
+{% extends 'datadump/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <h2>
+            <a href="">
+                 {{ post.title }}
+            </a>
+        </h2>
+        {{ post.body }}
+    {% endfor %}
+{% endblock %}

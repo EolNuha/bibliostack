@@ -20,6 +20,6 @@ from datadump import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('datadump/', include('datadump.urls')),
+    path('datadump/', include('datadump.urls', namespace='datadump')),
 ]
 

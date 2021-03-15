@@ -1,23 +1,24 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator
-from .models import Post, Comment
-from .forms import PostForm
+from django.shortcuts import render, get_object_or_404
+from .models import Post
 
 
-def posts(response, page):
-    object_models = []
-    paginator = Paginator(object_models, 5)
-    page_number = page
-    page_obj = paginator.get_page(page_number)
-
-    return render(response, 'pagination.html', {'page_obj': page_obj})
-
-def post_details(request):
-    object_models = Post.objects.all()
-    form = PostForm()
+def post_list(request):
+    posts = Post.objects.all()
     context = {
-        'form': form,
-        'posts': object_models
-
+        'posts': posts
     }
-    return render(request, 'datadump/details.html', context)
+    return render(request, 'datadump/post/list.html', context)
+
+
+def post_detail(request, year, month, day, post):
+    post = get_object_or_404(Post, slug=post,
+                             status='published',
+                             publish__year=year,
+                             publish__month=month,
+                             publish__day=day)
+    comments = post.comments.filter(active=True)
+    context = {
+        'post': post,
+        'comments': comments
+    }
+    return render(request, 'datadump/post/detail.html', context)
