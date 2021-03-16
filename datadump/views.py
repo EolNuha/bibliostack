@@ -1,11 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
+from taggit.models import Tag
 
 
-def post_list(request):
+def post_list(request, tag_slug=None):
     posts = Post.objects.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        posts = posts.filter(tags__in=[tag])
+
     context = {
-        'posts': posts
+        'posts': posts,
+        'tag':tag,
     }
     return render(request, 'datadump/post/list.html', context)
 
