@@ -16,8 +16,8 @@ def post_list(request, tag_slug=None):
     posts = paginator.get_page(page_number)
 
     context = {
-        'tag':tag,
-        'page':posts
+        'tag': tag,
+        'posts': posts,
     }
     return render(request, 'datadump/post/list.html', context)
 

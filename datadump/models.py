@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from taggit.managers import TaggableManager
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -19,7 +20,10 @@ class Post(models.Model):
         ordering = ('-publish',)
 
     def __str__(self):
-        return self.title
+        return self.title + ' | ' + str(self.slug)
+
+    def get_absolute_url(self):
+        return reverse('datadump:post_detail', args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
 
 
 class Comment(models.Model):
