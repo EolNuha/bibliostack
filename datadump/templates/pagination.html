@@ -1,13 +1,35 @@
-<div class="pagination">
-    <span class="step-links">
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
         {% if page.has_previous %}
-            <a href="?page={{ page.previous_page_number }}">Previous</a>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
         {% endif %}
-        <span class="current">
-            Page {{ page.number }} of {{ page.paginator.num_pages }}.
-        </span>
+        <li class="page-item">
+            <a class="page-link">
+                Page {{ page.number }} of {{ page.paginator.num_pages }}
+            </a>
+        </li>
         {% if page.has_next %}
-            <a href="?page={{ page.next_page_number }}">Next</a>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
         {% endif %}
-    </span>
-</div>
+    </ul>
+</nav>
