@@ -1,23 +1,29 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from taggit.models import Tag
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def post_list(request, tag_slug=None):
-    posts = Post.objects.all()
+    object_list = Post.objects.all()
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
-        posts = posts.filter(tags__in=[tag])
+        object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get('page')
-    posts = paginator.get_page(page_number)
+    paginator = Paginator(object_list, 5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
     context = {
-        'tag': tag,
+        'page': page,
         'posts': posts,
+        'tag': tag,
     }
     return render(request, 'datadump/post/list.html', context)
 
