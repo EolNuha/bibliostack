@@ -1,23 +1,62 @@
 {% extends 'datadump/base.html' %}
 
-{% block title %}{{ posts.title }}{% endblock %}
+{% block title %}Post | {{ post.title }}{% endblock %}
 
 {% block content %}
-    <div class="container my-4">
-        <div class="card">
-            <div class="card-header">
-                <h3>Post: {{ posts.title }}</h3>
-            </div>
-            <div class="card-body">
-                {% for comment in comments %}
-                    <p>
-                        Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}
-                    </p>
-                    {{ comment.body }}
-                {% empty %}
-                    <p>There are no comments yet.</p>
-                {% endfor %}
-            </div>
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>{{ post.title }}</h3>
+        </div>
+        <div class="card-body">
+            <p>{{ post.body }}</p>
+            <h6><b class="user-bold">@{{post.author}}</b> - {{post.publish}}</h6>
+            {% for tag in post.tags.all %}
+            <a href="/datadump/tag/{{tag.slug}}">
+                <button class="btn btn-primary btn-tag" data-toggle="tooltip" data-placement="bottom"
+                        title="This is the {{ tag.name }} tag">{{tag}}
+                </button>
+            </a>
+            {% endfor %}
         </div>
     </div>
+    <hr>
+</div>
+<div class="container-lg">
+    {% for comment in comments %}
+    <div class="jumbotron">
+        <h4>Comment {{ forloop.counter }} by {{ comment.name }}</h4>
+        <hr>
+        <p>
+            {{ comment.body }}
+        </p>
+        <b style="float: left;" class="user-bold">{{ comment.name }}</b> <i style="float: right;">{{ comment.created }}</i>
+    </div>
+    {% empty %}
+    <p>There are no comments yet.</p>
+    {% endfor %}
+</div>
+<div class="container-lg">
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <label for="Name">Full Name</label>
+                <input type="text" class="form-control" id="Name" placeholder="Name">
+            </div>
+            <div class="col">
+                <label for="Email">Email</label>
+                <input type="email" class="form-control" id="Email" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comment">Comment</label>
+            <textarea type="text" class="form-control" name="content" id="comment" placeholder="Comment" required></textarea>
+            <small class="form-text text-muted">Add something helpful about this problem!</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <hr>
+</div>
 {% endblock %}
