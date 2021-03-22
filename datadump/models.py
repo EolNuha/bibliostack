@@ -5,7 +5,16 @@ from taggit.managers import TaggableManager
 from django.urls import reverse
 
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status='published')
+
+
 class Post(models.Model):
+    STATUSES = (
+        ('draft', 'Draft'),
+        ('published', 'Published')
+    )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datadump_posts')
@@ -13,8 +22,10 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=54)
+    status = models.CharField(max_length=54, choices=STATUSES, default="draft")
     tags = TaggableManager()
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
         ordering = ('-publish',)
