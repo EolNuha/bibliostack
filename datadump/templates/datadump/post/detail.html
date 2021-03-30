@@ -1,4 +1,5 @@
 {% extends 'datadump/base.html' %}
+{% load datadump_tags %}
 
 {% block title %}Post | {{ post.title }}{% endblock %}
 
@@ -52,11 +53,55 @@
         </div>
         <div class="form-group">
             <label for="comment">Comment</label>
-            <textarea type="text" class="form-control" name="content" id="comment" placeholder="Comment" required></textarea>
+            <textarea type="text" class="form-control" name="content" id="comment" placeholder="Comment"
+                      required></textarea>
             <small class="form-text text-muted">Add something helpful about this problem!</small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <hr>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div class="container my-4">
+    <div class="card bg-dark text-white">
+        <div class="card-header">
+            <h3>Latest Posts</h3>
+        </div>
+        <div class="card-body">
+            {% get_latest_posts 5 as posts %}
+            {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}">
+                <p>• {{ post.title }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card bg-info text-white">
+        <div class="card-header">
+            <h3>Top Used Tags</h3>
+        </div>
+        <div class="card-body">
+            {% get_most_tags 5 as tags %}
+            {% for item in tags %}
+            <a href="/datadump/tag/{{ item.slug }}">
+                <p>• {{ item.name }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card bg-warning text-white">
+        <div class="card-header">
+            <h3>Top Commented Posts</h3>
+        </div>
+        <div class="card-body">
+            {% get_most_commented_posts 5 as comments %}
+            {% for post in comments %}
+            <a href="{{ post.get_absolute_url }}">
+                <p>• {{ post.title }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

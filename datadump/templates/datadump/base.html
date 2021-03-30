@@ -20,9 +20,15 @@
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
 <body>
-<div id="content">
-    {% block content %}
-    {% endblock %}
+<div class="row">
+    <div id="content" class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="sidebar" class="sidebar">
+        {% block sidebar %}
+        {% endblock %}
+    </div>
 </div>
 </body>
 </html>
