@@ -1,25 +1,26 @@
-  .btn-tag {
-    padding: 1px 5px !important;
-    font-size: 12px !important;
-    line-height: 1.5 !important;
-    border-radius: 3px !important;
-  }
+.content-body{overflow-x: hidden;}
+.btn-tag {
+padding: 1px 5px !important;
+font-size: 12px !important;
+line-height: 1.5 !important;
+border-radius: 3px !important;
+}
 
-  .user-bold {
-    color: red;
-  }
+.user-bold {
+color: red;
+}
 
-  a {
-    text-decoration: none;
-    color: #000;
-  }
+a {
+text-decoration: none;
+color: #000;
+}
 
-  a:hover {
-    text-decoration: none;
-    color: #000;
-  }
-  .card {margin: 20px 0px;}
-  .jumbotron {margin: 20px 0px; padding: 32px 16px;}
+a:hover {
+text-decoration: none;
+color: #000;
+}
+.card {margin: 20px 0px;}
+.jumbotron {margin: 20px 0px; padding: 32px 16px;}
 
 
 /* Sidebar */
@@ -63,3 +64,45 @@ body{overflow-x: hidden;}
   padding: 20px;
 }
 }
+
+
+
+/* ============= FOOTER STYLES ==============  */
+ footer {min-height: 200px; background-color: black; padding: 50px; color: white; margin-top: 100px;}
+@media only screen and (max-width: 500px) {
+    footer {padding: 20px;}
+}
+.col-sm-4 {padding: 30px;}
+.col-sm-4 p {color: grey;}
+.fa-facebook:hover {color: #3b5998;}
+.fa-twitter:hover {color: #00acee;}
+.fa-youtube:hover {color: #FF0000;}
+.fa-instagram:hover {color:#8a3ab9;}
+.fa-facebook {margin-right: 30px; border-radius: 50%;font-size: 30px; cursor: pointer; transition-duration: 0.5s;}
+.fa-instagram {margin-right: 30px; border-radius: 50%;font-size: 30px; cursor: pointer; transition-duration: 0.5s;}
+.fa-twitter {margin-right: 30px; border-radius: 50%;font-size: 30px; cursor: pointer; transition-duration: 0.5s;}
+.fa-youtube {margin-right: 30px; border-radius: 50%;font-size: 30px; cursor: pointer; transition-duration: 0.5s;}
+.devider{border: 0;height: 3px; max-width: 120px; width: 100%; background: linear-gradient(to right, #0099ff 50%, #0099ff50 120%);}
+.header-devider{background: linear-gradient(to right, white 50%, #0099ff 120%);} /* changes color of hr tag on header */
+.content-body {min-height: 400px;}
+
+
+/* ===================== FORM UI =============== */
+.form-input {  /* Input Form Styles */
+  box-shadow: none;
+  display: block;
+  width: 100%;
+  min-height: 60px;
+  padding: 18px 25px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #29293a;
+  background-color: #f2f3f9;
+  background-image: none;
+  border: 0px solid #f2f3f9;
+  border-radius: 35px;
+  -webkit-appearance: none;
+  outline: none;
+}
+textarea.form-input {resize: vertical;}
+label {color: #007bff; padding: 5px;} /* label styles */

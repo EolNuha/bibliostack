@@ -17,17 +17,109 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
 <body>
-<div class="row">
-    <div id="content" class="content">
-        {% block content %}
-        {% endblock %}
+<div class="content-body">
+    <div class="row">
+        <div id="content" class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="sidebar" class="sidebar">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
     </div>
-    <div id="sidebar" class="sidebar">
-        {% block sidebar %}
-        {% endblock %}
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <a href="/datadump" style="color: white;">BiblioStack</a> is the next platform to learn and help those
+                learning. We can add something else cause I don't
+                know
+                to say. But yeah, it's going to be great :)
+            </div>
+            <div class="col-sm-4">
+                Copyright © 2021 BiblioStack, Inc.
+            </div>
+            <div class="col-sm-4">
+                <span class="fa fa-facebook"></span>
+                <span class="fa fa-instagram"></span>
+                <span class="fa fa-youtube"></span>
+                <span class="fa fa-twitter"></span>
+            </div>
+            <div class="col-sm-4">
+                <h3>Bibliostack</h3>
+                <ul>
+                    <li>Company</li>
+                    <li>Our Team</li>
+                    <li>Our Process</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <h3>Our Info</h3>
+                <p><span class="fa fa-phone"></span> +38344999999</p>
+                <p><span class="fa fa-envelope"></span> support@bibliostack.com</p>
+                <p><span class="fa fa-map-marker"></span> Prishtina, Kosovo</p>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                    Contact Us
+                </button>
+                <small class="form-text text-muted">Send a direct message to our team!</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Contact Us</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" id="contact-form" action="/#contact-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>First name</label>
+                            <input class="form-input" type="text" name="first" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Last name</label>
+                            <input class="form-input" type="text" name="last" required>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-6">
+                            <label>Email</label>
+                            <input class="form-input" type="email" name="email" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Phone Number</label>
+                            <input class="form-input" type="tel" name="phone" required>
+                        </div>
+                    </div>
+                    <label>Message</label>
+                    <textarea class="form-input" name="message" required cols="60" rows="4" minlength="10"></textarea>
+                    <small class="form-text text-muted">Write what we can do to help you!</small>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
 </body>
