@@ -1,0 +1,65 @@
+{% extends 'datadump/base.html' %}
+{% load datadump_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %}Ask a Question{{ post.title }}{% endblock %}
+{% block content %}
+<div class="container-lg">
+    <div class="card" style="background-color: rgba(0,0,0,.03);">
+        <div class="card-body">
+            <form method="POST" id="create-post-form">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Ask a Question</legend>
+                    {{ create_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Submit</button>
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div class="container my-4">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h4>Step 1: Draft your question</h4>
+        </div>
+        <div class="card-body">
+            <p>
+                The community is here to help you with specific questions about your problems.
+                Avoid asking opinion-based questions.
+            </p>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-header">
+            <h4>Step 2: Summarize the problem</h4>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>
+                    Include details about your goal
+                </li>
+                <li>
+                    Describe expected and actual results
+                </li>
+                <li>
+                    Include any error messages
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-header">
+            <h4>Step 3: Describe what you've tried</h4>
+        </div>
+        <div class="card-body">
+            Show what you’ve tried and tell us what you found (on this site or elsewhere) and why it didn’t meet your needs. You can get better answers when you provide research.
+        </div>
+    </div>
+</div>
+{% endblock %}
