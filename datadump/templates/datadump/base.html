@@ -18,6 +18,8 @@
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'datadump/tagsinput/bootstrap-tagsinput.css' %}">
+    <link rel="stylesheet" href="{% static 'datadump/tagsinput/app.css' %}">
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
 <body>
@@ -157,5 +159,14 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'datadump/tagsinput/bootstrap-tagsinput.min.js' %}"></script>
+<script src="{% static 'datadump/tagsinput/bootstrap-tagsinput-angular.min.js' %}"></script>
+<script>
+    $('input#id_tags').tagsinput({
+  confirmKeys: [32, 44],
+  maxTags: 5
+});
+</script>
 </body>
 </html>

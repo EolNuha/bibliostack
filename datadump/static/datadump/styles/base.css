@@ -105,3 +105,21 @@ body{overflow-x: hidden;}
   outline: none;
 }
 textarea.form-input {resize: vertical;}
+
+
+/* ===================== TAG INPUT FIELD =====================  */
+.bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: #007bff;
+    background-color: rgba(0, 129, 255, 0.19);
+    padding: 2px;
+    border-radius: 4px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+    content: &#10006;
+    padding: 0px 2px;
+}
+::placeholder {
+    color: black;
+    opacity: 0.5;
+}
