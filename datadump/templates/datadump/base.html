@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
-<style>
-    .navbar-dark{background-color: #000000!important}
-</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/datadump">BiblioStack</a>
@@ -51,8 +48,7 @@
                     <a class="dropdown-item" href="/accounts/logout">Log Out</a>
                 </div>
             </li>
-            {% endif %}
-            {% if not user.is_authenticated %}
+            {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="/accounts/login">Log In</a>
             </li>
