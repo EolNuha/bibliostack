@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from .forms import CreatePost
 from django.db.models.signals import pre_save
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
 
 
 def post_list(request, tag_slug=None):
@@ -24,6 +25,19 @@ def post_list(request, tag_slug=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
+    if request.method == 'POST':
+        if 'contact_us' in request.POST:
+            name = request.POST.get('first')
+            last_name = request.POST.get('last')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            message = request.POST.get('message')
+            html_mail = f'<h5>Phone: {phone}<br>Email: {email}</h5><p>{message}</p>'
+            subject, from_email, to = name + " " + last_name, email, 'eol.nuha22@gmail.com'
+            msg = EmailMessage(subject, html_mail, from_email, [to])
+            msg.content_subtype = "html"
+            msg.send()
+
     context = {
         'page': page,
         'posts': posts,
@@ -40,18 +54,31 @@ def post_detail(request, year, month, day, post):
                              publish__day=day)
     comments = post.comments.filter(active=True)
     if request.method == 'POST':
-        if request.user.is_authenticated:
-            name = request.user.username
-            email = request.user.email
-            comment = request.POST.get('comment')
-            c = Comment(post=post, name=name, email=email, body=comment)
-            c.save()
-        else:
-            name = request.POST.get('name')
+        if 'contact_us' in request.POST:
+            name = request.POST.get('first')
+            last_name = request.POST.get('last')
             email = request.POST.get('email')
-            comment = request.POST.get('comment')
-            c = Comment(post=post, name=name, email=email, body=comment)
-            c.save()
+            phone = request.POST.get('phone')
+            message = request.POST.get('message')
+            html_mail = f'<h5>Phone: {phone}<br>Email: {email}</h5><p>{message}</p>'
+            subject, from_email, to = name + " " + last_name, email, 'eol.nuha22@gmail.com'
+            msg = EmailMessage(subject, html_mail, from_email, [to])
+            msg.content_subtype = "html"
+            msg.send()
+
+        elif 'add_comment' in request.POST:
+            if request.user.is_authenticated:
+                name = request.user.username
+                email = request.user.email
+                comment = request.POST.get('comment')
+                c = Comment(post=post, name=name, email=email, body=comment)
+                c.save()
+            else:
+                name = request.POST.get('name')
+                email = request.POST.get('email')
+                comment = request.POST.get('comment')
+                c = Comment(post=post, name=name, email=email, body=comment)
+                c.save()
     context = {
         'post': post,
         'comments': comments
@@ -62,15 +89,27 @@ def post_detail(request, year, month, day, post):
 @login_required
 def create_post(request):
     if request.method == 'POST':
-        create_form = CreatePost(request.POST)
-        if create_form.is_valid():
-            def pre_save_post_receiver(sender, instance, *args, **kwargs):
-                instance.slug = slugify(instance.title)
-                instance.author = request.user
-                instance.status = "published"
-            pre_save.connect(pre_save_post_receiver, sender=Post)
-            create_form.save()
-            return redirect('/datadump')
+        if 'contact_us' in request.POST:
+            name = request.POST.get('first')
+            last_name = request.POST.get('last')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            message = request.POST.get('message')
+            html_mail = f'<h5>Phone: {phone}<br>Email: {email}</h5><p>{message}</p>'
+            subject, from_email, to = name + " " + last_name, email, 'eol.nuha22@gmail.com'
+            msg = EmailMessage(subject, html_mail, from_email, [to])
+            msg.content_subtype = "html"
+            msg.send()
+        elif 'create_post' in request.POST:
+            create_form = CreatePost(request.POST)
+            if create_form.is_valid():
+                def pre_save_post_receiver(sender, instance, *args, **kwargs):
+                    instance.slug = slugify(instance.title)
+                    instance.author = request.user
+                    instance.status = "published"
+                pre_save.connect(pre_save_post_receiver, sender=Post)
+                create_form.save()
+                return redirect('/datadump')
     else:
         create_form = CreatePost()
 
