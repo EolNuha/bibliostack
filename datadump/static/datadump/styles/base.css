@@ -123,3 +123,25 @@ textarea.form-input {resize: vertical;}
     color: black;
     opacity: 0.5;
 }
+
+
+/* ======================= ASK A QUESTION SIDEBAR TAGS ================== */
+
+.pointer {cursor: pointer;}
+.panel-title {
+  position: relative;
+}
+
+.panel-title::after {
+  content: "\f107";
+  color: #333;
+  top: -2px;
+  right: 0px;
+  position: absolute;
+  font-family: "FontAwesome"
+}
+
+.panel-title[aria-expanded="true"]::after {
+  content: "\f106";
+}
+p.panel-title{margin-bottom: 0;}
