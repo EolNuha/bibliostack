@@ -7,6 +7,7 @@ from .forms import CreatePost
 from django.db.models.signals import pre_save
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
 
 def post_list(request, tag_slug=None):
@@ -42,6 +43,7 @@ def post_list(request, tag_slug=None):
         'page': page,
         'posts': posts,
         'tag': tag,
+        'all_posts': Post.objects.all(),
     }
     return render(request, 'datadump/post/list.html', context)
 
@@ -81,13 +83,15 @@ def post_detail(request, year, month, day, post):
                 c.save()
     context = {
         'post': post,
-        'comments': comments
+        'comments': comments,
+        'all_posts': Post.objects.all(),
     }
     return render(request, 'datadump/post/detail.html', context)
 
 
 @login_required
 def create_post(request):
+    create_form = []
     if request.method == 'POST':
         if 'contact_us' in request.POST:
             name = request.POST.get('first')
@@ -115,6 +119,29 @@ def create_post(request):
 
     context = {
         'create_form': create_form,
+        'all_posts': Post.objects.all(),
     }
     return render(request, 'datadump/post/create_post.html', context)
 
+
+def search_posts(request):
+    search = request.GET.get('search')
+    vector = SearchVector('title', weight='A') + SearchVector('body', weight='B')
+    query = SearchQuery(search)
+    search_results = Post.objects.annotate(rank=SearchRank(vector, query)).filter(rank__gte=0.3).order_by('-rank')
+    paginator = Paginator(search_results, 5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    context = {
+        'search': search,
+        'page': page,
+        'posts': posts,
+        'search_results': search_results,
+        'all_posts': Post.objects.all(),
+    }
+    return render(request, 'datadump/post/search_results.html', context)

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'taggit',
     'crispy_forms',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [

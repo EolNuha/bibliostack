@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'datadump/images/examplelogo.png' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -18,6 +19,10 @@
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="{% static 'datadump/tagsinput/bootstrap-tagsinput.css' %}">
     <link rel="stylesheet" href="{% static 'datadump/tagsinput/app.css' %}">
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
@@ -39,6 +44,19 @@
             </li>
         </ul>
         <ul class="navbar-nav">
+            <form class="form-inline" method="get" action="/datadump/search">
+                <<input class="form-control autocomplete" type="search" placeholder="Search" aria-label="Search"
+                        name="search"
+                        autocomplete="off"
+                        value="{{ search }}" required id="search">
+
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -159,7 +177,17 @@
         </div>
     </div>
 </div>
+<script>
+$(function() {
+    var availableTags = [{% for item in all_posts %}"{{ item.title }}",{% endfor%}
+    ];
+   $("#search").autocomplete({
+    source: availableTags
+  });
+  });
 
+
+</script>
 <script src="{% static 'datadump/tagsinput/bootstrap-tagsinput.min.js' %}"></script>
 <script src="{% static 'datadump/tagsinput/bootstrap-tagsinput-angular.min.js' %}"></script>
 <script>
