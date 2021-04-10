@@ -4,6 +4,9 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+{% if not tag == None %}
+    <h2 style="text-align: center">{{ tag }}</h2>
+{% endif %}
 <div class="container my-4">
     {% for post in posts %}
     <div class="card">

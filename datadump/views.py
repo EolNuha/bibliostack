@@ -48,7 +48,32 @@ def post_list(request, tag_slug=None):
     return render(request, 'datadump/post/list.html', context)
 
 
+def post_update(request, year, month, day, post):
+    post = get_object_or_404(Post, slug=post,
+                             status='published',
+                             publish__year=year,
+                             publish__month=month,
+                             publish__day=day)
+    if request.user == post.author:
+        if request.method == 'POST':
+            create_form = CreatePost(request.POST, instance=post)
+            if create_form.is_valid():
+                obj = create_form.save()
+                obj.slug = slugify(obj.title)
+                obj.save()
+            return redirect(f'{post.get_absolute_url()}')
+    else:
+        return redirect('/datadump')
+
+    context = {
+        'all_posts': Post.objects.all(),
+        'post': post
+    }
+    return render(request, 'datadump/post/update_post.html', context)
+
+
 def post_detail(request, year, month, day, post):
+    post_slug = post
     post = get_object_or_404(Post, slug=post,
                              status='published',
                              publish__year=year,
@@ -67,7 +92,9 @@ def post_detail(request, year, month, day, post):
             msg = EmailMessage(subject, html_mail, from_email, [to])
             msg.content_subtype = "html"
             msg.send()
-
+        elif 'delete_post' in request.POST:
+            Post.objects.filter(slug=post_slug, status='published', publish__year=year, publish__month=month, publish__day=day).delete()
+            return redirect('/datadump')
         elif 'add_comment' in request.POST:
             if request.user.is_authenticated:
                 name = request.user.username
