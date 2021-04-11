@@ -8,6 +8,7 @@ from django.db.models.signals import pre_save
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib import messages
 
 
 def post_list(request, tag_slug=None):
@@ -61,7 +62,13 @@ def post_update(request, year, month, day, post):
                 obj = create_form.save()
                 obj.slug = slugify(obj.title)
                 obj.save()
-            return redirect(f'{post.get_absolute_url()}')
+                messages.success(request, "Question Updated Successfully!")
+                return redirect(f'{post.get_absolute_url()}')
+            else:
+                for field in create_form:
+                    for error in field.errors:
+                        error = error
+                messages.error(request, f"{error}")
     else:
         return redirect('/datadump')
 
@@ -94,6 +101,7 @@ def post_detail(request, year, month, day, post):
             msg.send()
         elif 'delete_post' in request.POST:
             Post.objects.filter(slug=post_slug, status='published', publish__year=year, publish__month=month, publish__day=day).delete()
+            messages.success(request, "Question deleted successfully!")
             return redirect('/datadump')
         elif 'add_comment' in request.POST:
             if request.user.is_authenticated:
@@ -108,6 +116,7 @@ def post_detail(request, year, month, day, post):
                 comment = request.POST.get('comment')
                 c = Comment(post=post, name=name, email=email, body=comment)
                 c.save()
+            messages.success(request, "Comment added successfully!")
     context = {
         'post': post,
         'comments': comments,
@@ -140,7 +149,13 @@ def create_post(request):
                     instance.status = "published"
                 pre_save.connect(pre_save_post_receiver, sender=Post)
                 create_form.save()
+                messages.success(request, "Question posted successfully!")
                 return redirect('/datadump')
+            else:
+                for field in create_form:
+                    for error in field.errors:
+                        error = error
+                messages.error(request, f"{error}")
     else:
         create_form = CreatePost()
 

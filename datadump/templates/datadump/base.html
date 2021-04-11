@@ -27,15 +27,10 @@
     <link rel="stylesheet" href="{% static 'datadump/tagsinput/app.css' %}">
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
-<style>
-    .logo {transition: transform .2s;}
-    .logo:hover {
-  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
-</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/datadump"><img src="{% static 'datadump/images/logo_bibliostack.png' %}" height="30px" class="logo"></a>
+    <a class="navbar-brand" href="/datadump"><img src="{% static 'datadump/images/logo_bibliostack.png' %}"
+                                                  height="30px" class="logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -51,10 +46,10 @@
         </ul>
         <ul class="navbar-nav">
             <form class="form-inline" method="get" action="/datadump/search">
-                <<input class="form-control autocomplete" type="search" placeholder="Search" aria-label="Search"
-                        name="search"
-                        autocomplete="off"
-                        value="{{ search }}" required id="search">
+                <input class="form-control autocomplete" type="search" placeholder="Search" aria-label="Search"
+                       name="search"
+                       autocomplete="off"
+                       value="{{ search }}" required id="search">
 
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -83,6 +78,16 @@
         </ul>
     </div>
 </nav>
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags %}{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}{% endif %} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+{% endif %}
 <div class="content-body">
     <div class="row">
         <div id="content" class="content">
@@ -194,6 +199,7 @@ $(function() {
   });
 
 
+
 </script>
 <script src="{% static 'datadump/tagsinput/bootstrap-tagsinput.min.js' %}"></script>
 <script src="{% static 'datadump/tagsinput/bootstrap-tagsinput-angular.min.js' %}"></script>
@@ -202,6 +208,7 @@ $(function() {
   confirmKeys: [32, 44],
   maxTags: 5
 });
+
 </script>
 </body>
 </html>

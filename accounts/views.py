@@ -43,6 +43,7 @@ def profile(request):
     return render(request, 'accounts/profile.html', context)
 
 
+@login_required
 def posts(request):
     user_posts = Post.objects.filter(author=request.user)
     paginator = Paginator(user_posts, 5)
