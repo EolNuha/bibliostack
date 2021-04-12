@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from datadump.models import Post
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def register(request):
@@ -9,7 +11,6 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
@@ -40,3 +41,21 @@ def profile(request):
     }
 
     return render(request, 'accounts/profile.html', context)
+
+
+@login_required
+def posts(request):
+    user_posts = Post.objects.filter(author=request.user)
+    paginator = Paginator(user_posts, 5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    context = {
+        'posts': posts,
+        'page': page
+    }
+    return render(request, 'accounts/posts.html', context)

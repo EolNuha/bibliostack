@@ -9,7 +9,7 @@ border-radius: 3px !important;
 .user-bold {
 color: red;
 }
-
+.navbar-dark{background-color: #000000!important}
 a {
 text-decoration: none;
 color: #000;
@@ -105,4 +105,52 @@ body{overflow-x: hidden;}
   outline: none;
 }
 textarea.form-input {resize: vertical;}
-label {color: #007bff; padding: 5px;} /* label styles */
+
+
+/* ===================== TAG INPUT FIELD =====================  */
+.bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: #007bff;
+    background-color: rgba(0, 129, 255, 0.19);
+    padding: 2px;
+    border-radius: 4px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+    content: &#10006;
+    padding: 0px 2px;
+}
+::placeholder {
+    color: black;
+    opacity: 0.5;
+}
+
+
+/* ======================= ASK A QUESTION SIDEBAR TAGS ================== */
+
+.pointer {cursor: pointer;}
+.panel-title {
+  position: relative;
+}
+
+.panel-title::after {
+  content: "\f107";
+  color: #333;
+  top: -2px;
+  right: 0px;
+  position: absolute;
+  font-family: "FontAwesome"
+}
+
+.panel-title[aria-expanded="true"]::after {
+  content: "\f106";
+}
+p.panel-title{margin-bottom: 0;}
+
+
+
+/* logo style */
+
+.logo {transition: transform .2s;}
+.logo:hover {
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

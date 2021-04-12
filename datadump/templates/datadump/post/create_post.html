@@ -1,0 +1,92 @@
+{% extends 'datadump/base.html' %}
+{% load datadump_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %}Ask a Question{{ post.title }}{% endblock %}
+{% block content %}
+<div class="container-lg">
+    <div class="card" style="background-color: rgba(0,0,0,.03);">
+        <div class="card-body">
+            <form method="POST" id="create-post-form">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Ask a Question</legend>
+                        {{ create_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit" name="create_post">Submit</button>
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div class="container my-4">
+    <div class="panel-group" id="accordion">
+        <div class="card">
+            <div class="card-header pointer">
+                <p class="panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">Step 1:
+                    Draft your
+                    question</p>
+            </div>
+            <div id="collapseOne" class="collapse show">
+                <div class="card-body">
+                    The community is here to help you with specific questions about your problems.
+                    Avoid asking opinion-based questions.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header pointer">
+                <p class="panel-title" data-toggle="collapse" data-target="#collapseTwo">Step 2:
+                    Summarize the
+                    problem</p>
+            </div>
+            <div id="collapseTwo" class="collapse">
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            Include details about your goal
+                        </li>
+                        <li>
+                            Describe expected and actual results
+                        </li>
+                        <li>
+                            Include any error messages
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card ">
+            <div class="card-header pointer">
+                <p class="panel-title" data-toggle="collapse" data-target="#collapseThree">Step 3:
+                    Describe what you've
+                    tried</p>
+            </div>
+            <div id="collapseThree" class="collapse">
+                <div class="card-body">
+                    Show what you’ve tried and tell us what you found (on this site or elsewhere) and why it didn’t meet
+                    your
+                    needs. You can get better answers when you provide research.
+                </div>
+            </div>
+        </div>
+        <div class="card ">
+            <div class="card-header panel-heading-full pointer">
+                <p class="panel-title" data-toggle="collapse" data-target="#collapseFour">Step 4:
+                    Most Important Topics</p>
+            </div>
+            <div id="collapseFour" class="collapse">
+                <div class="card-body">
+                    Add one word tags that most describe the topics of the problem you are facing. For example if you're
+                    facing a programming issue add tags for that problem (e.g. 'Django Python Flask'), if the problem is
+                    in physics add tags for that (e.g. 'Physics Molecules Dynamics') etc..
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

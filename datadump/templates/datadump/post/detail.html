@@ -21,6 +21,14 @@
             {% endfor %}
         </div>
     </div>
+    {% if user == post.author %}
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        <a href="{{ post.get_absolute_url }}update/"><button class="btn btn-info" type="button">Update Question</button></a>
+        <button class="btn btn-danger float-right" type="submit" name="delete_post">Delete Question</button>
+    </form>
+    {% endif %}
     <hr>
 </div>
 <div class="container-lg">
@@ -31,33 +39,36 @@
         <p>
             {{ comment.body }}
         </p>
-        <b style="float: left;" class="user-bold">{{ comment.name }}</b> <i style="float: right;">{{ comment.created
-        }}</i>
+        <b style="float: left;" class="user-bold">@{{ comment.name }}</b> <i style="float: right;">{{ comment.created }}</i>
     </div>
     {% empty %}
     <p>There are no comments yet.</p>
     {% endfor %}
 </div>
-<div class="container-lg">
+<div class="container-fluid">
+    <hr>
+    <h3>Your Answer</h3>
     <hr>
     <form method="POST" id="contact-form">
         {% csrf_token %}
+        {% if not user.is_authenticated %}
         <div class="row">
             <div class="col-sm-6">
                 <label>Full name</label>
-                <input class="form-input" type="text" name="name" required>
+                <input class="form-input" type="text" name="name">
             </div>
             <div class="col-sm-6">
                 <label>Email</label>
-                <input class="form-input" type="email" name="email" required>
+                <input class="form-input" type="email" name="email">
             </div>
         </div>
+        {% endif %}
         <div class="form-group">
             <label>Comment</label>
-            <textarea class="form-input" name="message" required cols="60" rows="4" minlength="10"></textarea>
+            <textarea class="form-input" name="comment" required cols="60" rows="4" minlength="10"></textarea>
             <small class="form-text text-muted">Write something helpful about this problem!</small>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" name="add_comment">Post Your Answer</button>
     </form>
     <hr>
 </div>
