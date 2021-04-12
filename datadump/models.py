@@ -17,6 +17,7 @@ class Post(models.Model):
         ('published', 'Published')
     )
     title = models.CharField(max_length=250, unique=True)
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datadump_posts')
     body = RichTextField()
