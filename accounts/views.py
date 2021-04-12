@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from datadump.models import Post
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from datadump.models import Post, Comment
+from django.contrib.auth.models import User
 
 
 def register(request):
@@ -44,18 +44,14 @@ def profile(request):
 
 
 @login_required
-def posts(request):
-    user_posts = Post.objects.filter(author=request.user)
-    paginator = Paginator(user_posts, 5)
-    page = request.GET.get('page')
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+def profile_visit(request, id):
+    user_profile = get_object_or_404(User, id=id)
+    posts = Post.objects.filter(author=user_profile)
+    comments = Comment.objects.filter(name=user_profile.username)
     context = {
+        'profile': user_profile,
         'posts': posts,
-        'page': page
+        'comments': comments,
     }
-    return render(request, 'accounts/posts.html', context)
+    return render(request, 'accounts/users_profile.html', context)
+
