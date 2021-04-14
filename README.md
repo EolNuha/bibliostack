@@ -19,42 +19,42 @@ The BiblioStack development is divided into three parts: Backend, Frontend and D
 
 1. The backend is developed using the Python language and the Python framework Django.
 
-  - With Python and Django was developed the logic to handle all BiblioStack’s functionalities like:
+   - With Python and Django was developed the logic to handle all BiblioStack’s functionalities like:
 
-    - User register and login authentication.
+     - User register and login authentication.
 
-    - Being able to post, update and delete questions.
+     - Being able to post, update and delete questions.
 
-    - Being able to up vote or down vote a question.
+     - Being able to up vote or down vote a question.
 
-    - Tags were created using a Django library called “django-taggit“.
+     - Tags were created using a Django library called “django-taggit“.
 
-    - Sending emails was used Django’s email configuration.
+     - Sending emails was used Django’s email configuration.
 
-    - The search engine was created using Postgresql’s querying mixed with Django’s own search functions.
+     - The search engine was created using Postgresql’s querying mixed with Django’s own search functions.
 
 2. The frontend is developed using different languages and libraries, like HTML&CSS, JavaScript, BootStrap,  JQuery etc…
 
-  - HTML was used for structuring the websites look.
+   - HTML was used for structuring the websites look.
 
-  - For styling was used mostly bootstrap except for some of our own changes.
+   - For styling was used mostly bootstrap except for some of our own changes.
 
-  - JavaScript was used for making the website interactive with the user, together with its library JQuery.
+   - JavaScript was used for making the website interactive with the user, together with its library JQuery.
 
 3. For the functionality of tags input field was used a package named “bootstrap-tagsinput”.
 
-  - For storing the users data, questions and answers of those users was used the PostgreSQL database.
+   - For storing the users data, questions and answers of those users was used the PostgreSQL database.
 
-  - The Postgresql database is stored in a remote server separate from the website and then linked from there.
+   - The Postgresql database is stored in a remote server separate from the website and then linked from there.
 
-  - The database has three tables:
+   - The database has three tables:
 
-    - User table (for storing user’s data)
+     - User table (for storing user’s data)
 
-    - Post table (for storing questions)
+     - Post table (for storing questions)
 
-    - Comment table (for storing questions answers)
+     - Comment table (for storing questions answers)
 
-  - Postgresql is also used in making queries so that the search engine is more powerful.
+   - Postgresql is also used in making queries so that the search engine is more powerful.
 
 
