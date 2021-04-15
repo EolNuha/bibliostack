@@ -1,25 +1,63 @@
 {% extends "datadump/base.html" %}
 {% block title %}Log In {% endblock %}
-{% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-    <div class="container content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Login</button>
-                <small class="text-muted ml-2">
-                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
-                </small>
+<link rel="stylesheet" href="{% static 'datadump/styles/login-form.css' %}">
+{% if form.errors %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    Wrong username or password!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+<main class="main">
+    <div class="form-container">
+        <section class="wrapper">
+            <div class="heading">
+                <h1 class="text text-large">Log In</h1>
+                <p class="text text-normal">New user? <span><a href="{% url 'register' %}"
+                                                               class="text text-links">Create an account</a></span>
+                </p>
             </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
-            </small>
-        </div>
+            <form name="login" class="form" method="POST">
+                {% csrf_token %}
+                {% for item in form %}
+                <div class="input-control">
+                    {{ item }}
+                </div>
+                {% endfor %}
+                <div class="input-control">
+                    <a href="{% url 'password_reset' %}" class="text text-links">Forgot Password</a>
+                    <button type="submit" name="submit" class="input-submit">Log In</button>
+                </div>
+            </form>
+            <div class="striped">
+                <span class="striped-line"></span>
+                <span class="striped-text">Or</span>
+                <span class="striped-line"></span>
+            </div>
+            <div class="method">
+                <div class="method-control">
+                    <a href="#" class="method-action">
+                        <i class="fa fa-google login-icon-google"></i>
+                        <span>Sign in with Google</span>
+                    </a>
+                </div>
+                <div class="method-control">
+                    <a href="#" class="method-action">
+                        <i class="fa fa-facebook login-icon-facebook"></i>
+                        <span>Sign in with Facebook</span>
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
-{% endblock content %}
+</main>
+<script>
+    $(document).ready(function(){
+        $("#id_username").attr('placeholder', 'Username');
+        $("#id_password").attr('placeholder', 'Password');
+    });
+</script>
+{% endblock %}
