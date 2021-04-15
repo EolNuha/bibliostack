@@ -116,7 +116,6 @@ textarea.form-input {resize: vertical;}
     border-radius: 4px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
-    content: &#10006;
     padding: 0px 2px;
 }
 ::placeholder {

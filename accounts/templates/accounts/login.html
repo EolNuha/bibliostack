@@ -1,7 +1,8 @@
 {% extends "datadump/base.html" %}
 {% block title %}Log In {% endblock %}
 {% load static %}
-{% block content %}
+{% block navbar %}{% include "datadump/post/navbar.html" %}{% endblock %}
+{% block dashboard %}
 <link rel="stylesheet" href="{% static 'datadump/styles/login-form.css' %}">
 {% if form.errors %}
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -61,3 +62,4 @@
     });
 </script>
 {% endblock %}
+{% block footer %}{% include "datadump/post/footer.html" %}{% endblock %}

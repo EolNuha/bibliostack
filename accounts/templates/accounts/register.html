@@ -1,11 +1,11 @@
 {% extends "datadump/base.html" %}
 {% block title %}Register {% endblock %}
 {% load static %}
-{% block content %}
+{% block navbar %}{% include "datadump/post/navbar.html" %}{% endblock %}
+{% block dashboard %}
 <link rel="stylesheet" href="{% static 'datadump/styles/login-form.css' %}">
 {% if form.errors %}
-
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {% for field in form %}
         {% if field.errors %}
         {% for error in field.errors %}
@@ -16,8 +16,7 @@
         {% endfor %}
         {% endif %}
         {% endfor %}
-
-        </div>
+    </div>
 {% endif %}
 <main class="main">
     <div class="form-container">
@@ -70,5 +69,5 @@
     });
 
 </script>
-</script>
-{% endblock content %}
+{% endblock %}
+{% block footer %}{% include "datadump/post/footer.html" %}{% endblock %}

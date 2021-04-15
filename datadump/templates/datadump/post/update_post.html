@@ -3,113 +3,126 @@
 {% load crispy_forms_tags %}
 
 {% block title %}Update Question{% endblock %}
-{% block content %}
-<div class="container-lg">
-    <div class="card" style="background-color: rgba(0,0,0,.03);">
-        <div class="card-body">
-            <form method="POST" id="create-post-form">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Update Question</legend>
-                    <div id="div_id_title" class="form-group">
-                        <label for="id_title" class=" requiredField">Title*</label>
-                        <div class="">
-                            <input type="text" name="title" maxlength="250" class="textinput textInput form-control"
-                                   required id="id_title" value="{{ post.title }}">
-                        </div>
-                    </div>
-                    <div id="div_id_body" class="form-group">
-                        <label for="id_body" class=" requiredField">Body*</label>
-                        <div class="">
+{% block navbar %}{% include "datadump/post/navbar.html" %}{% endblock %}
+{% block dashboard %}
+<div class="row">
+    <div id="content" class="content">
+        <div class="container-lg">
+            <div class="card" style="background-color: rgba(0,0,0,.03);">
+                <div class="card-body">
+                    <form method="POST" id="create-post-form">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Update Question</legend>
+                            <div id="div_id_title" class="form-group">
+                                <label for="id_title" class=" requiredField">Title*</label>
+                                <div class="">
+                                    <input type="text" name="title" maxlength="250"
+                                           class="textinput textInput form-control"
+                                           required id="id_title" value="{{ post.title }}">
+                                </div>
+                            </div>
+                            <div id="div_id_body" class="form-group">
+                                <label for="id_body" class=" requiredField">Body*</label>
+                                <div class="">
                             <textarea name="body" cols="40" rows="10" class="textarea form-control" required
                                       id="id_body">{{ post.body }}</textarea>
-                        </div>
-                    </div>
-                    <div id="div_id_tags" class="form-group">
-                        <label for="id_tags" class=" requiredField">Tags*</label>
-                        <div class="">
-                            <input type="text" name="tags" class="tagwidget form-control" required id="id_tags"
-                                   data-role="tagsinput" placeholder="e.g. (python django flask)"  value="{% for i in post.tags.all %}{{i}}, {% endfor %}">
-                            <small id="hint_id_tags" class="form-text text-muted">Add up to 5 tags to describe what your
-                                question is about</small>
-                        </div>
-                    </div>
-                </fieldset>
+                                </div>
+                            </div>
+                            <div id="div_id_tags" class="form-group">
+                                <label for="id_tags" class=" requiredField">Tags*</label>
+                                <div class="">
+                                    <input type="text" name="tags" class="tagwidget form-control" required id="id_tags"
+                                           data-role="tagsinput" placeholder="e.g. (python django flask)"
+                                           value="{% for i in post.tags.all %}{{i}}, {% endfor %}">
+                                    <small id="hint_id_tags" class="form-text text-muted">Add up to 5 tags to describe
+                                        what your
+                                        question is about</small>
+                                </div>
+                            </div>
+                        </fieldset>
 
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit" name="update_post">Submit</button>
-                </div>
-            </form>
-            <hr>
-        </div>
-    </div>
-</div>
-{% endblock %}
-{% block sidebar %}
-<div class="container my-4">
-    <div class="panel-group" id="accordion">
-        <div class="card">
-            <div class="card-header pointer">
-                <p class="panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">Step 1:
-                    Draft your
-                    question</p>
-            </div>
-            <div id="collapseOne" class="collapse show">
-                <div class="card-body">
-                    The community is here to help you with specific questions about your problems.
-                    Avoid asking opinion-based questions.
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header pointer">
-                <p class="panel-title" data-toggle="collapse" data-target="#collapseTwo">Step 2:
-                    Summarize the
-                    problem</p>
-            </div>
-            <div id="collapseTwo" class="collapse">
-                <div class="card-body">
-                    <ul>
-                        <li>
-                            Include details about your goal
-                        </li>
-                        <li>
-                            Describe expected and actual results
-                        </li>
-                        <li>
-                            Include any error messages
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="card ">
-            <div class="card-header pointer">
-                <p class="panel-title" data-toggle="collapse" data-target="#collapseThree">Step 3:
-                    Describe what you've
-                    tried</p>
-            </div>
-            <div id="collapseThree" class="collapse">
-                <div class="card-body">
-                    Show what you’ve tried and tell us what you found (on this site or elsewhere) and why it didn’t meet
-                    your
-                    needs. You can get better answers when you provide research.
-                </div>
-            </div>
-        </div>
-        <div class="card ">
-            <div class="card-header panel-heading-full pointer">
-                <p class="panel-title" data-toggle="collapse" data-target="#collapseFour">Step 4:
-                    Most Important Topics</p>
-            </div>
-            <div id="collapseFour" class="collapse">
-                <div class="card-body">
-                    Add one word tags that most describe the topics of the problem you are facing. For example if you're
-                    facing a programming issue add tags for that problem (e.g. 'Django Python Flask'), if the problem is
-                    in physics add tags for that (e.g. 'Physics Molecules Dynamics') etc..
+                        <div class="form-group">
+                            <button class="btn btn-outline-info" type="submit" name="update_post">Submit</button>
+                        </div>
+                    </form>
+                    <hr>
                 </div>
             </div>
         </div>
     </div>
+    <div id="sidebar" class="sidebar">
+        <div class="container my-4">
+            <div class="panel-group" id="accordion">
+                <div class="card">
+                    <div class="card-header pointer">
+                        <p class="panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">
+                            Step 1:
+                            Draft your
+                            question</p>
+                    </div>
+                    <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                            The community is here to help you with specific questions about your problems.
+                            Avoid asking opinion-based questions.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header pointer">
+                        <p class="panel-title" data-toggle="collapse" data-target="#collapseTwo">Step 2:
+                            Summarize the
+                            problem</p>
+                    </div>
+                    <div id="collapseTwo" class="collapse">
+                        <div class="card-body">
+                            <ul>
+                                <li>
+                                    Include details about your goal
+                                </li>
+                                <li>
+                                    Describe expected and actual results
+                                </li>
+                                <li>
+                                    Include any error messages
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card ">
+                    <div class="card-header pointer">
+                        <p class="panel-title" data-toggle="collapse" data-target="#collapseThree">Step 3:
+                            Describe what you've
+                            tried</p>
+                    </div>
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                            Show what you’ve tried and tell us what you found (on this site or elsewhere) and why it
+                            didn’t meet
+                            your
+                            needs. You can get better answers when you provide research.
+                        </div>
+                    </div>
+                </div>
+                <div class="card ">
+                    <div class="card-header panel-heading-full pointer">
+                        <p class="panel-title" data-toggle="collapse" data-target="#collapseFour">Step 4:
+                            Most Important Topics</p>
+                    </div>
+                    <div id="collapseFour" class="collapse">
+                        <div class="card-body">
+                            Add one word tags that most describe the topics of the problem you are facing. For example
+                            if you're
+                            facing a programming issue add tags for that problem (e.g. 'Django Python Flask'), if the
+                            problem is
+                            in physics add tags for that (e.g. 'Physics Molecules Dynamics') etc..
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
+{% block footer %}{% include "datadump/post/footer.html" %}{% endblock %}
