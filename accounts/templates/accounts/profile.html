@@ -1,30 +1,36 @@
 {% extends "datadump/base.html" %}
 {% block title %}Profile | {{ user.username }} {% endblock %}
 {% load crispy_forms_tags %}
-{% block content %}
-<div class="container content-section">
-    <form method="POST" enctype="multipart/form-data" class="jumbotron">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
-            <small class="text-muted ml-2">
-                    <a href="{% url 'password_reset' %}">Change Password</a>
-            </small>
+{% block navbar %}{% include "datadump/post/navbar.html" %}{% endblock %}
+{% block dashboard %}
+<div class="row">
+    <div id="content" class="content">
+        <div class="container content-section">
+            <form method="POST" enctype="multipart/form-data" class="jumbotron">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Profile Info</legend>
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Update</button>
+                    <small class="text-muted ml-2">
+                        <a href="{% url 'password_reset' %}">Change Password</a>
+                    </small>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-{% endblock %}
-{% block sidebar %}
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{ user.profile.image.url }}">
-    <div class="card-body">
-        <h2 class="account-heading">{{ user.username }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
+    </div>
+    <div id="sidebar" class="sidebar">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ user.profile.image.url }}">
+            <div class="card-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
+{% block footer %}{% include "datadump/post/footer.html" %}{% endblock %}

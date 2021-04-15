@@ -184,7 +184,7 @@ def create_post(request):
                 for field in create_form:
                     for error in field.errors:
                         error = error
-                messages.error(request, f"{error}")
+                        messages.error(request, f"{error}")
     else:
         create_form = CreatePost()
 

@@ -2,116 +2,84 @@
 {% load datadump_tags %}
 
 {% block title %}Search | {{ search }}{% endblock %}
-{% block content %}
-{% if not posts %}
-<div style="text-align: center;">
-    <p style="font-size: 100px;">Error 4&#128531;4</p>
-    <h3>Oops! Couldn't find anything for: {{search}}</h3>
-    <h5>Check your spelling!</h5>
-</div>
-{% else %}
-
-<h5 class="container-fluid">Search for: <b>{{ search }}</b></h5>
-<div class="container my-4">
-    {% for post in posts %}
-    <div class="card">
-        <a href="{{ post.get_absolute_url }}">
-            <div class="card-header">
-                <h3>{{ post.title }}</h3>
-            </div>
-        </a>
-        <div class="card-body">
-            <p>{{ post.body }}</p>
-            <h6><a href="/accounts/profile/{{post.author.id}}"><b class="user-bold">@{{ post.author }}</b></a> - {{ post.publish }}</h6>
-            {% for tag in post.tags.all %}
-            <a href="/datadump/tag/{{ tag.slug }}">
-                <button class="btn btn-primary btn-tag" data-toggle="tooltip" data-placement="bottom"
-                        title="This is the {{ tag.name }} tag">{{ tag }}
-                </button>
-                {% endfor %}
-            </a>
+{% block navbar %}{% include "datadump/post/navbar.html" %}{% endblock %}
+{% block dashboard %}
+<div class="row">
+    <div id="content" class="content">
+        {% if not posts %}
+        <div style="text-align: center;">
+            <p style="font-size: 100px;">Error 4&#128531;4</p>
+            <h3>Oops! Couldn't find anything for: {{search}}</h3>
+            <h5>Check your spelling!</h5>
         </div>
-    </div>
-    {% endfor %}
-</div>
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        {% if posts.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?search={{ search }}&page={{ posts.previous_page_number }}"
-               aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
         {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        {% endif %}
-        <li class="page-item">
-            <a class="page-link">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-            </a>
-        </li>
-        {% if posts.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?search={{ search }}&page={{ posts.next_page_number }}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        {% endif %}
-    </ul>
-</nav>
-{% endif %}
-{% endblock %}
-{% block sidebar %}
-<div class="container my-4">
-    <div class="card bg-dark text-white">
-        <div class="card-header">
-            <h3>Latest Posts</h3>
-        </div>
-        <div class="card-body">
-            {% get_latest_posts 5 as posts %}
+        <h5 class="container-fluid">Search for: <b>{{ search }}</b></h5>
+        <div class="container my-4">
             {% for post in posts %}
-            <a href="{{ post.get_absolute_url }}">
-                <p>• {{ post.title }}</p>
-            </a>
+            <div class="card">
+                <a href="{{ post.get_absolute_url }}">
+                    <div class="card-header">
+                        <h3>{{ post.title }}</h3>
+                    </div>
+                </a>
+                <div class="card-body">
+                    {% with post.body|markdown|safe as body %}
+                    <p>{{ body }}</p>
+                    {% endwith %}
+                    <h6><a href="/accounts/profile/{{post.author.id}}"><b class="user-bold">@{{ post.author }}</b></a> -
+                        {{ post.publish }}</h6>
+                    {% for tag in post.tags.all %}
+                    <a href="/datadump/tag/{{ tag.slug }}">
+                        <button class="btn btn-primary btn-tag" data-toggle="tooltip" data-placement="bottom"
+                                title="This is the {{ tag.name }} tag">{{ tag }}
+                        </button>
+                        {% endfor %}
+                    </a>
+                </div>
+            </div>
             {% endfor %}
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?search={{ search }}&page={{ posts.previous_page_number }}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link">
+                        Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                    </a>
+                </li>
+                {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?search={{ search }}&page={{ posts.next_page_number }}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
     </div>
-    <div class="card bg-info text-white">
-        <div class="card-header">
-            <h3>Top Used Tags</h3>
-        </div>
-        <div class="card-body">
-            {% get_most_tags 5 as tags %}
-            {% for item in tags %}
-            <a href="/datadump/tag/{{ item.slug }}">
-                <p>• {{ item.name }}</p>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="card bg-warning text-white">
-        <div class="card-header">
-            <h3>Top Commented Posts</h3>
-        </div>
-        <div class="card-body">
-            {% get_most_commented_posts 5 as comments %}
-            {% for post in comments %}
-            <a href="{{ post.get_absolute_url }}">
-                <p>• {{ post.title }}</p>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
+    {% include "datadump/post/sidebar.html" %}
+
 </div>
 {% endblock %}
+{% block footer %}{% include "datadump/post/footer.html" %}{% endblock %}

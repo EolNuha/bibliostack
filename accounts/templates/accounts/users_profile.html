@@ -1,122 +1,127 @@
 {% extends "datadump/base.html" %}
-{% block title %}{{ profile.username }} {% endblock %}
+{% block title %}{{ profile.username }}{% endblock %}
 {% load static %}
 {% load datadump_tags %}
-{% block content %}
+{% block navbar %}{% include "datadump/post/navbar.html" %}{% endblock %}
+{% block dashboard %}
 <style>
     .content {width: 100%}
-    .sidebar {width: 0%}
 </style>
-<div class="content-section">
-    <div class="container-lg my-4">
-        <fieldset class="form-group">
-            <div class="row">
-                <div class="col-sm">
-                    <img class="card-img-top" src="{{ profile.profile.image.url }}"
-                         style="width: 150px; border-radius: 50%">
-                    <p>{{ profile.get_full_name }}<br>{{ profile.email }}</p>
-                </div>
-                <div class="col-sm text-center mx-auto" style="padding-top: 60px">
-                    <h4>{{ posts.count }}</h4>
-                    {% if posts.count == 1 %}
-                    <h6>Question</h6>
-                    {% else %}
-                    <h6>Questions</h6>
-                    {% endif %}
-                </div>
-                <div class="col-sm text-center" style="padding-top: 60px">
-                    <h4>{{ comments.count }}</h4>
-                    {% if comments.count == 1 %}
-                    <h6>Comment</h6>
-                    {% else %}
-                    <h6>Comments</h6>
-                    {% endif %}
-                </div>
-            </div>
-        </fieldset>
-        {% if user == profile %}
-        <fieldset class="form-group">
-            <a href="/accounts/profile">
-                <button class="btn btn-info" style="width: 100%">Edit Profile</button>
-            </a>
-
-        </fieldset>
-        {% endif %}
-        <div class="page-content page-container" id="page-content">
-            <div class="padding">
-                <div class="b-b b-theme nav-active-theme mb-3">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" style="width: 50%"><a class="nav-link active" id="home-tab"
-                                                                   data-toggle="tab" href="#home"
-                                                                   role="tab" aria-controls="home" aria-selected="true">Questions</a>
-                        </li>
-                        <li class="nav-item" style="width: 50%"><a class="nav-link" id="profile-tab" data-toggle="tab"
-                                                                   href="#profile"
-                                                                   role="tab" aria-controls="profile"
-                                                                   aria-selected="false">Comments</a></li>
-                    </ul>
-                </div>
-                <div class="tab-content mb-4">
-                    <div class="tab-pane fade show active some-list" id="home" role="tabpanel"
-                         aria-labelledby="home-tab">
-                        {% for post in posts %}
-                        <div class="card">
-                            <a href="{{ post.get_absolute_url }}">
-                                <div class="card-header">
-                                    <h3>{{ post.title }}</h3>
-                                </div>
-                            </a>
-                            <div class="card-body">
-                                {% with post.body|markdown|safe as body %}
-                                <p>{{ body }}</p>
-                                {% endwith %}
-                                <h6>
-                                    <a href="/accounts/profile/{{post.author.id}}">
-                                        <b class="user-bold">@{{ post.author }}</b>
-                                    </a> - {{ post.publish }}
-                                </h6>
-                                {% for tag in post.tags.all %}
-                                <a href="/datadump/tag/{{ tag.slug }}">
-                                    <button class="btn btn-primary btn-tag" data-toggle="tooltip"
-                                            data-placement="bottom"
-                                            title="This is the {{ tag.name }} tag">{{ tag }}
-                                    </button>
-                                    {% endfor %}
-                                </a>
-                            </div>
+<div class="row">
+    <div id="content" class="content">
+        <div class="content-section">
+            <div class="container-lg my-4">
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img class="card-img-top" src="{{ profile.profile.image.url }}"
+                                 style="width: 150px; border-radius: 50%">
+                            <p>{{ profile.get_full_name }}<br>{{ profile.email }}</p>
                         </div>
-                        {% empty %}
-                        <div class="text-center form-group">
-                            <h4>There are no questions yet.</h4>
-                            {% if user == profile %}
-                            <small>Click here to </small>
-                            <a href="/datadump/create-post">
-                                <button class="btn btn-outline-info">Make a Question</button>
-                            </a>
+                        <div class="col-sm text-center mx-auto" style="padding-top: 60px">
+                            <h4>{{ posts.count }}</h4>
+                            {% if posts.count == 1 %}
+                            <h6>Question</h6>
+                            {% else %}
+                            <h6>Questions</h6>
                             {% endif %}
                         </div>
-                        {% endfor %}
+                        <div class="col-sm text-center" style="padding-top: 60px">
+                            <h4>{{ comments.count }}</h4>
+                            {% if comments.count == 1 %}
+                            <h6>Comment</h6>
+                            {% else %}
+                            <h6>Comments</h6>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        {% for comment in comments %}
-                        <div class="jumbotron">
-                            <h4>Post:
-                                <a href="{{comment.post.get_absolute_url}}">
-                                    <b class="user-bold">{{ comment.post.title }}</b>
-                                </a>
-                            </h4>
-                            <hr>
-                            <p>
-                                {{ comment.body }}
-                            </p>
-                            <b style="float: left;" class="user-bold">@{{ comment.name }}</b>
-                            <i style="float: right;">{{ comment.created }}</i>
+                </fieldset>
+                {% if user == profile %}
+                <fieldset class="form-group">
+                    <a href="/accounts/profile">
+                        <button class="btn btn-info" style="width: 100%">Edit Profile</button>
+                    </a>
+                </fieldset>
+                {% endif %}
+                <div class="page-content page-container" id="page-content">
+                    <div class="padding">
+                        <div class="b-b b-theme nav-active-theme mb-3">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" style="width: 50%"><a class="nav-link active" id="home-tab"
+                                                                           data-toggle="tab" href="#home"
+                                                                           role="tab" aria-controls="home"
+                                                                           aria-selected="true">Questions</a>
+                                </li>
+                                <li class="nav-item" style="width: 50%"><a class="nav-link" id="profile-tab"
+                                                                           data-toggle="tab"
+                                                                           href="#profile"
+                                                                           role="tab" aria-controls="profile"
+                                                                           aria-selected="false">Comments</a></li>
+                            </ul>
                         </div>
-                        {% empty %}
-                        <div class="text-center">
-                            <h4>There are no comments yet.</h4>
+                        <div class="tab-content mb-4">
+                            <div class="tab-pane fade show active some-list" id="home" role="tabpanel"
+                                 aria-labelledby="home-tab">
+                                {% for post in posts %}
+                                <div class="card">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        <div class="card-header">
+                                            <h3>{{ post.title }}</h3>
+                                        </div>
+                                    </a>
+                                    <div class="card-body">
+                                        {% with post.body|markdown|safe as body %}
+                                        <p>{{ body|truncatewords_html:15 }}</p>
+                                        {% endwith %}
+                                        <h6>
+                                            <a href="/accounts/profile/{{post.author.id}}">
+                                                <b class="user-bold">@{{ post.author }}</b>
+                                            </a> - {{ post.publish }}
+                                        </h6>
+                                        {% for tag in post.tags.all %}
+                                        <a href="/datadump/tag/{{ tag.slug }}">
+                                            <button class="btn btn-primary btn-tag" data-toggle="tooltip"
+                                                    data-placement="bottom"
+                                                    title="This is the {{ tag.name }} tag">{{ tag }}
+                                            </button>
+                                            {% endfor %}
+                                        </a>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="text-center form-group">
+                                    <h4>There are no questions yet.</h4>
+                                    {% if user == profile %}
+                                    <small>Click here to </small>
+                                    <a href="/datadump/create-post">
+                                        <button class="btn btn-outline-info">Make a Question</button>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                {% for comment in comments %}
+                                <div class="jumbotron">
+                                    <h4>Post:
+                                        <a href="{{comment.post.get_absolute_url}}">
+                                            <b class="user-bold">{{ comment.post.title }}</b>
+                                        </a>
+                                    </h4>
+                                    <hr>
+                                    <p>
+                                        {{ comment.body }}
+                                    </p>
+                                    <b style="float: left;" class="user-bold">@{{ comment.name }}</b>
+                                    <i style="float: right;">{{ comment.created }}</i>
+                                </div>
+                                {% empty %}
+                                <div class="text-center">
+                                    <h4>There are no comments yet.</h4>
+                                </div>
+                                {% endfor %}
+                            </div>
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -124,3 +129,4 @@
     </div>
 </div>
 {% endblock%}
+{% block footer %}{% include "datadump/post/footer.html" %}{% endblock %}
