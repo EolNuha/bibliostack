@@ -1,6 +1,7 @@
 {% extends "datadump/base.html" %}
 {% block title %}{{ profile.username }} {% endblock %}
 {% load static %}
+{% load datadump_tags %}
 {% block content %}
 <style>
     .content {width: 100%}
@@ -47,7 +48,8 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" style="width: 50%"><a class="nav-link active" id="home-tab"
                                                                    data-toggle="tab" href="#home"
-                                                                   role="tab" aria-controls="home" aria-selected="true">Questions</a></li>
+                                                                   role="tab" aria-controls="home" aria-selected="true">Questions</a>
+                        </li>
                         <li class="nav-item" style="width: 50%"><a class="nav-link" id="profile-tab" data-toggle="tab"
                                                                    href="#profile"
                                                                    role="tab" aria-controls="profile"
@@ -55,7 +57,8 @@
                     </ul>
                 </div>
                 <div class="tab-content mb-4">
-                    <div class="tab-pane fade show active some-list" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active some-list" id="home" role="tabpanel"
+                         aria-labelledby="home-tab">
                         {% for post in posts %}
                         <div class="card">
                             <a href="{{ post.get_absolute_url }}">
@@ -64,7 +67,9 @@
                                 </div>
                             </a>
                             <div class="card-body">
-                                <p>{{ post.body }}</p>
+                                {% with post.body|markdown|safe as body %}
+                                <p>{{ body }}</p>
+                                {% endwith %}
                                 <h6>
                                     <a href="/accounts/profile/{{post.author.id}}">
                                         <b class="user-bold">@{{ post.author }}</b>
@@ -82,9 +87,13 @@
                         </div>
                         {% empty %}
                         <div class="text-center form-group">
-                            <h4>You haven't made any questions yet!</h4>
+                            <h4>There are no questions yet.</h4>
+                            {% if user == profile %}
                             <small>Click here to </small>
-                            <a href="/datadump/create-post"><button class="btn btn-outline-info">Make a Question</button></a>
+                            <a href="/datadump/create-post">
+                                <button class="btn btn-outline-info">Make a Question</button>
+                            </a>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>
