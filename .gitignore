@@ -1,5 +1,6 @@
 venv
 .idea
 __pycache__/
-.env
+bibliostack/.env
+media/profile_pics/
 .vscode/
