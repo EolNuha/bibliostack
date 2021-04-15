@@ -1,22 +1,74 @@
 {% extends "datadump/base.html" %}
 {% block title %}Register {% endblock %}
-{% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-    <div class="container content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Register Now</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
-            </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
-            </small>
+<link rel="stylesheet" href="{% static 'datadump/styles/login-form.css' %}">
+{% if form.errors %}
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {% for field in form %}
+        {% if field.errors %}
+        {% for error in field.errors %}
+            <p>{{ error|escape }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+
         </div>
+{% endif %}
+<main class="main">
+    <div class="form-container">
+        <section class="wrapper">
+            <div class="heading">
+                <h1 class="text text-large">Register Now</h1>
+            </div>
+            <form name="login" class="form" method="POST">
+                {% csrf_token %}
+                {% for item in form %}
+                <div class="input-control">
+                    {{ item }}
+                </div>
+                {% endfor %}
+                <div class="input-control">
+                    <small>Already a user?<a href="{% url 'login' %}" class="text text-links"> Log In</a></small>
+                    <button type="submit" name="submit" class="input-submit">Register</button>
+                </div>
+            </form>
+            <div class="striped">
+                <span class="striped-line"></span>
+                <span class="striped-text">Or</span>
+                <span class="striped-line"></span>
+            </div>
+            <div class="method">
+                <div class="method-control">
+                    <a href="#" class="method-action">
+                        <i class="fa fa-google login-icon-google"></i>
+                        <span>Register with Google</span>
+                    </a>
+                </div>
+                <div class="method-control">
+                    <a href="#" class="method-action">
+                        <i class="fa fa-facebook login-icon-facebook"></i>
+                        <span>Register with Facebook</span>
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
+</main>
+<script>
+    $(document).ready(function(){
+        $("#id_first_name").attr('placeholder', 'First Name');
+        $("#id_last_name").attr('placeholder', 'Last Name');
+        $("#id_email").attr('placeholder', 'Email');
+        $("#id_username").attr('placeholder', 'Username');
+        $("#id_password1").attr('placeholder', 'Password');
+        $("#id_password2").attr('placeholder', 'Confirm Password');
+    });
+
+</script>
+</script>
 {% endblock content %}
