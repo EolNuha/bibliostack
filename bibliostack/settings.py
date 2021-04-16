@@ -133,13 +133,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'datadump/static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-<<<<<<< HEAD
 CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
-=======
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
->>>>>>> 1b1c103... added-file-to- posts
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

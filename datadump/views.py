@@ -170,7 +170,7 @@ def create_post(request):
             msg.content_subtype = "html"
             msg.send()
         elif 'create_post' in request.POST:
-            create_form = CreatePost(request.POST)
+            create_form = CreatePost(request.POST, request.FILES)
             if create_form.is_valid():
                 def pre_save_post_receiver(sender, instance, *args, **kwargs):
                     instance.slug = slugify(instance.title)
@@ -216,3 +216,4 @@ def search_posts(request):
         'all_posts': Post.objects.all(),
     }
     return render(request, 'datadump/post/search_results.html', context)
+

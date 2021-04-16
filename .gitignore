@@ -2,5 +2,4 @@ venv
 .idea
 __pycache__/
 bibliostack/.env
-media/profile_pics/
 .vscode/

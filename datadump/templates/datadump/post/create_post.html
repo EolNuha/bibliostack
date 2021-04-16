@@ -10,7 +10,7 @@
     <div class="container-lg">
         <div class="card" style="background-color: rgba(0,0,0,.03);">
             <div class="card-body">
-                <form method="POST" id="create-post-form" class="uniForm">
+                <form method="POST" id="create-post-form" enctype="multipart/form-data" class="uniForm">
                     {% csrf_token %}
                     <fieldset class="form-group">
                         <legend class="border-bottom mb-4">Ask a Question</legend>
@@ -30,9 +30,9 @@
         <div class="panel-group" id="accordion">
             <div class="card">
                 <div class="card-header pointer">
-                    <p class="panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">Step 1:
-                        Draft your
-                        question</p>
+                    <p class="panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">
+                        Step 1: Draft your question
+                    </p>
                 </div>
                 <div id="collapseOne" class="collapse show">
                     <div class="card-body">
@@ -43,9 +43,9 @@
             </div>
             <div class="card">
                 <div class="card-header pointer">
-                    <p class="panel-title" data-toggle="collapse" data-target="#collapseTwo">Step 2:
-                        Summarize the
-                        problem</p>
+                    <p class="panel-title" data-toggle="collapse" data-target="#collapseTwo">
+                        Step 2: Summarize the problem
+                    </p>
                 </div>
                 <div id="collapseTwo" class="collapse">
                     <div class="card-body">
@@ -65,22 +65,22 @@
             </div>
             <div class="card ">
                 <div class="card-header pointer">
-                    <p class="panel-title" data-toggle="collapse" data-target="#collapseThree">Step 3:
-                        Describe what you've
-                        tried</p>
+                    <p class="panel-title" data-toggle="collapse" data-target="#collapseThree">
+                        Step 3: Describe what you've tried
+                    </p>
                 </div>
                 <div id="collapseThree" class="collapse">
                     <div class="card-body">
                         Show what you’ve tried and tell us what you found (on this site or elsewhere) and why it didn’t meet
-                        your
-                        needs. You can get better answers when you provide research.
+                        your needs. You can get better answers when you provide research.
                     </div>
                 </div>
             </div>
             <div class="card ">
                 <div class="card-header panel-heading-full pointer">
-                    <p class="panel-title" data-toggle="collapse" data-target="#collapseFour">Step 4:
-                        Most Important Topics</p>
+                    <p class="panel-title" data-toggle="collapse" data-target="#collapseFour">
+                        Step 4: Most Important Topics
+                    </p>
                 </div>
                 <div id="collapseFour" class="collapse">
                     <div class="card-body">
