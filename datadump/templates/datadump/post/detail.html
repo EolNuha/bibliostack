@@ -46,29 +46,29 @@
             {% if user.is_authenticated %}
             {% if vote.vote == 1 %}
             <input name="up_vote" value="up_vote" hidden>
-            <button type="submit" name="add_like" class="fa fa-caret-up transparent-button"
+            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button"
                     style="font-size: 50px; color: orange"></button>
             <br>
             {{ score.score }}
             <br>
-            <button type="submit" name="remove_like" class="fa fa-caret-down transparent-button"
+            <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button"
                     style="font-size: 50px;"></button>
             {% elif vote.vote == -1 %}
             <input name="down_vote" value="down_vote" hidden>
-            <button type="submit" name="add_like" class="fa fa-caret-up transparent-button"
+            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button"
                     style="font-size: 50px;"></button>
             <br>
             {{ score.score }}
             <br>
-            <button type="submit" name="remove_like" class="fa fa-caret-down transparent-button"
+            <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button"
                     style="font-size: 50px; color: orange"></button>
             {% else %}
-            <button type="submit" name="add_like" class="fa fa-caret-up transparent-button"
+            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button"
                     style="font-size: 50px;"></button>
             <br>
             {{ score.score }}
             <br>
-            <button type="submit" name="remove_like" class="fa fa-caret-down transparent-button"
+            <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button"
                     style="font-size: 50px;"></button>
             {% endif %}
             {% else %}
