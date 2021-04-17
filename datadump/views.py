@@ -104,6 +104,18 @@ def post_detail(request, year, month, day, post):
             Post.objects.filter(slug=post_slug, status='published', publish__year=year, publish__month=month, publish__day=day).delete()
             messages.success(request, "Question deleted successfully!")
             return redirect('/datadump')
+        elif 'add_post_like' in request.POST:
+            up_vote = request.POST.get('up_vote')
+            if up_vote == "up_vote":
+                Vote.objects.record_vote(post, request.user, 0)
+            else:
+                Vote.objects.record_vote(post, request.user, +1)
+        elif 'remove_post_like' in request.POST:
+            down_vote = request.POST.get('down_vote')
+            if down_vote == "down_vote":
+                Vote.objects.record_vote(post, request.user, 0)
+            else:
+                Vote.objects.record_vote(post, request.user, -1)
         elif 'add_comment_like' in request.POST:
             comment_id = request.POST.get('comment_id')
             up_vote = request.POST.get('up_vote')

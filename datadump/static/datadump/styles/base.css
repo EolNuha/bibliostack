@@ -164,3 +164,4 @@ blockquote{border-left: 4px solid gray; background: rgba(0,0,0,.03); padding-lef
     .comment-voting {width: 12%; float: left; text-align: center}
     .comment-body {width: 88%; float: left}
 }
+.post-likes {background-color: rgba(0,0,0,.09);; border-radius: 50%; padding: 2px 5px; font-size: 20px}
