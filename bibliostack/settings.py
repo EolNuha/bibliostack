@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'taggit',
     'crispy_forms',
     'django.contrib.postgres',
+    'voting',
 ]
 
 MIDDLEWARE = [

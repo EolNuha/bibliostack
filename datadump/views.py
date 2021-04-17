@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.contrib import messages
+from voting.models import Vote
 
 
 def post_list(request, tag_slug=None):
@@ -103,6 +104,22 @@ def post_detail(request, year, month, day, post):
             Post.objects.filter(slug=post_slug, status='published', publish__year=year, publish__month=month, publish__day=day).delete()
             messages.success(request, "Question deleted successfully!")
             return redirect('/datadump')
+        elif 'add_like' in request.POST:
+            comment_id = request.POST.get('comment_id')
+            up_vote = request.POST.get('up_vote')
+            comment = Comment.objects.get(id=comment_id)
+            if up_vote == "up_vote":
+                Vote.objects.record_vote(comment, request.user, 0)
+            else:
+                Vote.objects.record_vote(comment, request.user, +1)
+        elif 'remove_like' in request.POST:
+            comment_id = request.POST.get('comment_id')
+            comment = Comment.objects.get(id=comment_id)
+            down_vote = request.POST.get('down_vote')
+            if down_vote == "down_vote":
+                Vote.objects.record_vote(comment, request.user, 0)
+            else:
+                Vote.objects.record_vote(comment, request.user, -1)
         elif 'add_comment' in request.POST:
             if request.user.is_authenticated:
                 name = request.user.username
