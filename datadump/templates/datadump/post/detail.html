@@ -24,6 +24,53 @@
             {% endfor %}
         </div>
     </div>
+    <form method="post" style="width: 100%">
+        {% csrf_token %}
+        {% vote_by_user user on post as post_vote %}
+        {% score_for_object post as post_score %}
+        <div>
+            {% if user.is_authenticated %}
+            {% if post_vote.vote == 1 %}
+            <input name="up_vote" value="up_vote" hidden>
+            <button type="submit" name="add_post_like" class="fa fa-thumbs-up transparent-button"
+                    style="font-size: 30px; color: #007bff;" data-toggle="tooltip" data-placement="top" title="Remove like"></button>
+
+            <button type="submit" name="remove_post_like" class="fa fa-thumbs-down transparent-button"
+                    style="font-size: 30px;" data-toggle="tooltip" data-placement="top"
+                    title="This question does not show any research effort; it is not clear or not useful"></button>
+            <b class="post-likes">{{ post_score.score }}</b>
+            {% elif post_vote.vote == -1 %}
+            <input name="down_vote" value="down_vote" hidden>
+            <button type="submit" name="add_post_like" class="fa fa-thumbs-up transparent-button"
+                    style="font-size: 30px;" data-toggle="tooltip" data-placement="top"
+                    title="This question shows research effort; it is clear and useful"></button>
+
+            <button type="submit" name="remove_post_like" class="fa fa-thumbs-down transparent-button"
+                    style="font-size: 30px; color: #007bff;" data-toggle="tooltip" data-placement="top"
+                    title="Remove dislike"></button>
+            <b class="post-likes">{{ post_score.score }}</b>
+            {% else %}
+            <button type="submit" name="add_post_like" class="fa fa-thumbs-up transparent-button"
+                    style="font-size: 30px;" data-toggle="tooltip" data-placement="top"
+                    title="This question shows research effort; it is clear and useful"></button>
+
+            <button type="submit" name="remove_post_like" class="fa fa-thumbs-down transparent-button"
+                    style="font-size: 30px;" data-toggle="tooltip" data-placement="top"
+                    title="This question does not show any research effort; it is not clear or not useful"></button>
+            <b class="post-likes">{{ post_score.score }}</b>
+            {% endif %}
+            {% else %}
+            <a href="/accounts/login/?next={{ post.get_absolute_url }}">
+                <button type="button" class="fa fa-thumbs-up transparent-button" style="font-size: 30px;"></button>
+            </a>
+            <a href="/accounts/login/?next={{ post.get_absolute_url }}">
+                <button type="button" class="fa fa-thumbs-down transparent-button" style="font-size: 30px;"></button>
+            </a>
+            <b class="post-likes">{{ post_score.score }}</b>
+            {% endif %}
+        </div>
+    </form>
+
     {% if user == post.author %}
     <hr>
     <form method="post">
@@ -36,6 +83,9 @@
     {% endif %}
 </div>
 <div class="container-lg">
+    {% if comments %}
+    <h4>{{ comments.count }} Answers</h4>
+    {% endif %}
     {% for comment in comments %}
     <form method="post" style="width: 100%">
         {% csrf_token %}
@@ -47,29 +97,29 @@
             {% if vote.vote == 1 %}
             <input name="up_vote" value="up_vote" hidden>
             <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button"
-                    style="font-size: 50px; color: orange"></button>
+                    style="color: orange" data-toggle="tooltip" data-placement="right" title="Remove up vote"></button>
             <br>
             {{ score.score }}
             <br>
             <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button"
-                    style="font-size: 50px;"></button>
+                    style="font-size: 50px;" data-toggle="tooltip" data-placement="right" title="This answer is not useful"></button>
             {% elif vote.vote == -1 %}
             <input name="down_vote" value="down_vote" hidden>
-            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button"
-                    style="font-size: 50px;"></button>
+            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button" data-toggle="tooltip"
+                    data-placement="right" title="This answer is useful"></button>
             <br>
             {{ score.score }}
             <br>
             <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button"
-                    style="font-size: 50px; color: orange"></button>
+                    style="color: orange" data-toggle="tooltip" data-placement="right" title="Remove down vote"></button>
             {% else %}
-            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button"
-                    style="font-size: 50px;"></button>
+            <button type="submit" name="add_comment_like" class="fa fa-caret-up transparent-button" data-toggle="tooltip"
+                    data-placement="right" title="This answer is useful"></button>
             <br>
             {{ score.score }}
             <br>
-            <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button"
-                    style="font-size: 50px;"></button>
+            <button type="submit" name="remove_comment_like" class="fa fa-caret-down transparent-button" data-toggle="tooltip"
+                    data-placement="right" title="This answer is not useful"></button>
             {% endif %}
             {% else %}
             <a href="/accounts/login/?next={{ post.get_absolute_url }}">
