@@ -156,3 +156,11 @@ p.panel-title{margin-bottom: 0;}
 }
 
 blockquote{border-left: 4px solid gray; background: rgba(0,0,0,.03); padding-left: 2px;}
+
+.transparent-button {background: transparent; border: none;font-size: 50px;}
+.comment-voting {width: 8%; float: left; text-align: center}
+.comment-body {width: 92%; float: left}
+@media only screen and (max-width: 500px) {
+    .comment-voting {width: 12%; float: left; text-align: center}
+    .comment-body {width: 88%; float: left}
+}
