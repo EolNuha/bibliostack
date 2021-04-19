@@ -135,6 +135,12 @@ MEDIA_URL = '/media/'
 
 CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 
+ALLOWED_EXTENSIONS = ['jpeg', 'jpg']
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
