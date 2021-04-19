@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class PublishedManager(models.Manager):
@@ -18,7 +19,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datadump_posts')
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -31,7 +32,7 @@ class Post(models.Model):
         ordering = ('-publish',)
 
     def __str__(self):
-        return self.title + ' | ' + str(self.slug)
+        return f'{self.title} | {str(self.slug)}'
 
     def get_absolute_url(self):
         return reverse('datadump:post_detail', args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
