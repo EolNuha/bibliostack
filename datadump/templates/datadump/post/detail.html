@@ -9,9 +9,10 @@
         <div class="card-header">
             <h3>{{ post.title }}</h3>
         </div>
-        <div class="card-body">
+        <a class="card-body">
             {% with post.body|markdown|safe as body %}
             <p>{{ body }}</p>
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" style="height: 60px">
             {% endwith %}
             <h6><a href="/accounts/profile/{{post.author.id}}"><b class="user-bold">@{{ post.author }}</b></a> -
                 {{post.publish}}</h6>
