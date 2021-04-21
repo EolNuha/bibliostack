@@ -12,6 +12,13 @@ from django.contrib import messages
 from voting.models import Vote
 
 
+def handler404(request, exception):
+    context = {
+        'all_posts': Post.objects.all(),
+    }
+    return render(request, 'datadump/post/404.html', context)
+
+
 def post_list(request, tag_slug=None):
     object_list = Post.objects.all()
     tag = None
