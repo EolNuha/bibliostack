@@ -68,7 +68,7 @@
                             </a>
                             <div class="card-body">
                                 {% with post.body|markdown|safe as body %}
-                                <p>{{ body }}</p>
+                                <p>{{ body|truncatewords_html:30 }}</p>
                                 {% endwith %}
                                 <h6>
                                     <a href="{% url 'profile_visit' post.author.id %}">

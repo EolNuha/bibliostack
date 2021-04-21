@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="{% static 'datadump/tagsinput/app.css' %}">
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
+<style>
+    pre {background-color: rgba(0,0,0,.06); padding: 5px}
+    code { color: orange;}
+</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'datadump:post_list' %}"><img src="{% static 'datadump/images/logo_bibliostack.png' %}"
