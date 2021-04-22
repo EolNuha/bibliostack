@@ -25,4 +25,4 @@ def get_most_commented_posts(count=5):
 @register.filter()
 @stringfilter
 def markdown(value):
-    return md.markdown(value, extensions=['markdown.extensions.fenced_code'])
+    return md.markdown(value, extensions=['markdown.extensions.md_in_html'])

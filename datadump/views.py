@@ -63,6 +63,7 @@ def post_update(request, year, month, day, post):
                              publish__year=year,
                              publish__month=month,
                              publish__day=day)
+    create_form = CreatePost()
     if request.user == post.author:
         if request.method == 'POST':
             create_form = CreatePost(request.POST, instance=post)
@@ -78,11 +79,12 @@ def post_update(request, year, month, day, post):
                         error = error
                 messages.error(request, f"{error}")
     else:
-        return redirect('/datadump')
+        return redirect('datadump:post_list')
 
     context = {
         'all_posts': Post.objects.all(),
-        'post': post
+        'post': post,
+        'create_form': create_form
     }
     return render(request, 'datadump/post/update_post.html', context)
 
@@ -110,7 +112,7 @@ def post_detail(request, year, month, day, post):
         elif 'delete_post' in request.POST:
             Post.objects.filter(slug=post_slug, status='published', publish__year=year, publish__month=month, publish__day=day).delete()
             messages.success(request, "Question deleted successfully!")
-            return redirect('/datadump')
+            return redirect('datadump:post_list')
         elif 'add_post_like' in request.POST:
             up_vote = request.POST.get('up_vote')
             if up_vote == "up_vote":
@@ -186,7 +188,7 @@ def create_post(request):
                 pre_save.connect(pre_save_post_receiver, sender=Post)
                 create_form.save()
                 messages.success(request, "Question posted successfully!")
-                return redirect('/datadump')
+                return redirect('datadump:post_list')
             else:
                 for field in create_form:
                     for error in field.errors:

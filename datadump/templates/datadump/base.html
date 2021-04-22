@@ -28,7 +28,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/datadump"><img src="{% static 'datadump/images/logo_bibliostack.png' %}"
+    <a class="navbar-brand" href="{% url 'datadump:post_list' %}"><img src="{% static 'datadump/images/logo_bibliostack.png' %}"
                                                   height="30px" class="logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,14 +37,14 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/datadump">Home</a>
+                <a class="nav-link" href="{% url 'datadump:post_list' %}">Home</a>
 
             <li class="nav-item">
-                <a class="nav-link" href="/datadump/create-post">Ask Question</a>
+                <a class="nav-link" href="{% url 'datadump:create_post' %}">Ask Question</a>
             </li>
         </ul>
         <ul class="navbar-nav">
-            <form class="form-inline" method="get" action="/datadump/search">
+            <form class="form-inline" method="get" action="{% url 'datadump:search_posts' %}">
                 <input class="form-control autocomplete" type="search" placeholder="Search" aria-label="Search"
                        name="search"
                        autocomplete="off"
@@ -102,7 +102,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <a href="/datadump" style="color: white;">BiblioStack</a> is the next platform to learn and help those
+                <a href="{% url 'datadump:post_list' %}" style="color: white;">BiblioStack</a> is the next platform to learn and help those
                 learning. We can add something else cause I don't
                 know
                 to say. But yeah, it's going to be great :)

@@ -1,49 +1,35 @@
 {% extends 'datadump/base.html' %}
 {% load datadump_tags %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block title %}Update Question{% endblock %}
 {% block content %}
-<div class="container-lg">
-    <div class="card" style="background-color: rgba(0,0,0,.03);">
-        <div class="card-body">
-            <form method="POST" id="create-post-form">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Update Question</legend>
-                    <div id="div_id_title" class="form-group">
-                        <label for="id_title" class=" requiredField">Title*</label>
-                        <div class="">
-                            <input type="text" name="title" maxlength="250" class="textinput textInput form-control"
-                                   required id="id_title" value="{{ post.title }}">
-                        </div>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <div class="container-lg">
+        <div class="card" style="background-color: rgba(0,0,0,.03);">
+            <div class="card-body">
+                <form method="POST" id="create-post-form" enctype="multipart/form-data" class="uniForm">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Ask a Question</legend>
+                            {{ create_form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit" name="create_post">Submit</button>
                     </div>
-                    <div id="div_id_body" class="form-group">
-                        <label for="id_body" class=" requiredField">Body*</label>
-                        <div class="">
-                            <textarea name="body" cols="40" rows="10" class="textarea form-control" required
-                                      id="id_body">{{ post.body }}</textarea>
-                        </div>
-                    </div>
-                    <div id="div_id_tags" class="form-group">
-                        <label for="id_tags" class=" requiredField">Tags*</label>
-                        <div class="">
-                            <input type="text" name="tags" class="tagwidget form-control" required id="id_tags"
-                                   data-role="tagsinput" placeholder="e.g. (python django flask)"  value="{% for i in post.tags.all %}{{i}}, {% endfor %}">
-                            <small id="hint_id_tags" class="form-text text-muted">Add up to 5 tags to describe what your
-                                question is about</small>
-                        </div>
-                    </div>
-                </fieldset>
-
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit" name="update_post">Submit</button>
-                </div>
-            </form>
-            <hr>
+                </form>
+                <hr>
+            </div>
         </div>
     </div>
-</div>
+<script>
+$(document).ready(function(){
+        $("#id_title").attr('value', '{{ post.title }}');
+        $("input#id_tags").val("{% for i in post.tags.all %}{{i}}, {% endfor %}");
+    });
+</script>
 {% endblock %}
 {% block sidebar %}
 <div class="container my-4">
