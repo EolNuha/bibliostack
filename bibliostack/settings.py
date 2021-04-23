@@ -143,8 +143,8 @@ STATICFILES_DIRS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGOUT_REDIRECT_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/datadump'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'datadump:post_list'
 LOGIN_URL = 'login'
 
 

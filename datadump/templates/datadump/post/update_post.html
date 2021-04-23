@@ -6,29 +6,30 @@
 {% block title %}Update Question{% endblock %}
 {% block content %}
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
-    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-    <div class="container-lg">
-        <div class="card" style="background-color: rgba(0,0,0,.03);">
-            <div class="card-body">
-                <form method="POST" id="create-post-form" enctype="multipart/form-data" class="uniForm">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Ask a Question</legend>
-                            {{ create_form|crispy }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit" name="create_post">Submit</button>
-                    </div>
-                </form>
-                <hr>
-            </div>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<div class="container-lg">
+    <div class="card" style="background-color: rgba(0,0,0,.03);">
+        <div class="card-body">
+            <form method="POST" id="create-post-form" enctype="multipart/form-data" class="uniForm">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Update Question</legend>
+                    {{ create_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit" name="create_post">Submit</button>
+                </div>
+            </form>
+            <hr>
         </div>
     </div>
+</div>
 <script>
 $(document).ready(function(){
         $("#id_title").attr('value', '{{ post.title }}');
         $("input#id_tags").val("{% for i in post.tags.all %}{{i}}, {% endfor %}");
     });
+
 </script>
 {% endblock %}
 {% block sidebar %}

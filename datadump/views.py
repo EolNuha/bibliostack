@@ -63,7 +63,7 @@ def post_update(request, year, month, day, post):
                              publish__year=year,
                              publish__month=month,
                              publish__day=day)
-    create_form = CreatePost()
+    create_form = CreatePost(instance=post)
     if request.user == post.author:
         if request.method == 'POST':
             create_form = CreatePost(request.POST, instance=post)
@@ -148,12 +148,22 @@ def post_detail(request, year, month, day, post):
                 comment = request.POST.get('comment')
                 c = Comment(post=post, name=name, email=email, body=comment)
                 c.save()
+                html_mail = f'<h4>{name} made a comment on your post</h4><small>Here is the comment:<br></small><strong>{comment}</strong>'
+                subject, from_email, to = "Comment on post " + post.title, email, post.author.email
+                msg = EmailMessage(subject, html_mail, from_email, [to])
+                msg.content_subtype = "html"
+                msg.send()
             else:
                 name = request.POST.get('name')
                 email = request.POST.get('email')
                 comment = request.POST.get('comment')
                 c = Comment(post=post, name=name, email=email, body=comment)
                 c.save()
+                html_mail = f'<h4>{name} made a comment on your post</h4><small>Here is the comment:<br></small><strong>{comment}</strong>'
+                subject, from_email, to = "Comment on post " + post.title, email, post.author.email
+                msg = EmailMessage(subject, html_mail, from_email, [to])
+                msg.content_subtype = "html"
+                msg.send()
             messages.success(request, "Comment added successfully!")
     context = {
         'post': post,
