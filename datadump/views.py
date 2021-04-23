@@ -63,7 +63,7 @@ def post_update(request, year, month, day, post):
                              publish__year=year,
                              publish__month=month,
                              publish__day=day)
-    create_form = CreatePost()
+    create_form = CreatePost(instance=post)
     if request.user == post.author:
         if request.method == 'POST':
             create_form = CreatePost(request.POST, instance=post)

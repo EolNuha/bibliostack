@@ -14,27 +14,7 @@
                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Update Question</legend>
-                    <div id="div_id_title" class="form-group">
-                        <label for="id_title" class=" requiredField">Title*</label>
-                        <div class="">
-                            <input type="text" name="title" maxlength="250"
-                                   class="textinput textInput form-control"
-                                   required id="id_title" value="{{ post.title }}">
-                        </div>
-                    </div>
-                    {{ create_form.body }}
-                    <div id="div_id_tags" class="form-group">
-                        <label for="id_tags" class=" requiredField">Tags*</label>
-                        <div class="">
-                            <input type="text" name="tags" class="tagwidget form-control" required id="id_tags"
-                                   data-role="tagsinput" placeholder="e.g. (python django flask)"
-                                   value="{% for i in post.tags.all %}{{i}}, {% endfor %}">
-                            <small id="hint_id_tags" class="form-text text-muted">Add up to 5 tags to describe
-                                what your
-                                question is about</small>
-                        </div>
-                    </div>
-
+                    {{ create_form|crispy }}
                 </fieldset>
                 <div class="form-group">
                     <button class="btn btn-outline-info" type="submit" name="create_post">Submit</button>
