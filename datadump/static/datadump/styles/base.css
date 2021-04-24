@@ -168,3 +168,13 @@ blockquote{border-left: 4px solid gray; background: rgba(0,0,0,.03); padding-lef
 
 pre {background-color: rgba(0,0,0,.06); padding: 5px}
 code { color: orange;}
+
+    .scrolled-down{
+  transform:translateY(-100%); transition: all 0.3s ease-in-out;
+}
+.scrolled-up{
+  transform:translateY(0); transition: all 0.3s ease-in-out;
+}
+.navbar{position:fixed; top: 0; width: 100%}
+.search-input {border-radius: 0; border-top-left-radius: 3px; border-bottom-left-radius: 3px;}
+.search-input-button {border-radius: 0; border-top-right-radius: 3px; border-bottom-right-radius: 3px;}
