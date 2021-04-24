@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="{% static 'datadump/styles/base.css' %}">
 </head>
 <body>
-{% if messages %}
+<div class="content-body">
+    {% if messages %}
     {% for message in messages %}
     <div class="alert alert-{% if message.tags %}{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}{% endif %} alert-dismissible fade show" role="alert">
         {{ message }}
@@ -36,8 +37,7 @@
         </button>
     </div>
     {% endfor %}
-{% endif %}
-<div class="content-body">
+    {% endif %}
     <div class="row">
         <div id="content" class="content">
             {% block content %}
