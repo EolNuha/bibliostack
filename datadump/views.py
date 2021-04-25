@@ -236,3 +236,14 @@ def search_posts(request):
     }
     return render(request, 'datadump/post/search_results.html', context)
 
+
+def about_us(request):
+    return render(request, 'datadump/common/about.html')
+
+
+def faq(request):
+    return render(request, 'datadump/common/faq.html')
+
+
+def team(request):
+    return render(request, 'datadump/common/team.html')
