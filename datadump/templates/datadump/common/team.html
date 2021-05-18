@@ -1,77 +1,54 @@
 {% extends 'datadump/base.html' %}
+{% load static %}
 
-{% block title %} Frequently Asked Questions - BiblioStack{% endblock %}
+{% block title %} Our Team - BiblioStack{% endblock %}
 
 {% block content %}
     <div class="container text-monospace">
         <h1>Meet our team:</h1>
-        <div class="card border-light">
-            <div class="card-body">
-                <div class="card-title h5">
-                    Can I update my password?
-                </div>
-                <div class="card-text">
-                    Yes, you can. You have to go to the <a href="#">profile page</a>
-                    and click update password.<br/>
-                    If you're having problems login in, you can always reset your password via email by clicking
-                    <a href="#">Forgot Password</a>
-                </div>
-            </div>
-        </div>
-        <div class="card border-light">
-            <div class="card-body">
-                <div class="card-title h5">
-                    Can I change my avatar?
-                </div>
-                <div class="card-text">
-                    Sure, you can! All you have to do is to visit your profile page, and click Edit Profile button.<br/>
-                    There, you have to select a file and then click Update.<br/> Voilaaa!
+        <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+            <div class="col">
+                <div class="card shadow border-0 rounded h-100">
+                    <img src="{% static "datadump/images/fbpic.png" %}" class="card-img-top" alt="Employee image">
+                    <div class="card-body">
+                        <h4 class="card-title">Gentian Demaj</h4>
+                        <h5 class="card-text">Team Leader</h5>
+                        <p class="card-text">He's a math enthusiast and he likes chess, books and movies.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card border-light">
-            <div class="card-body">
-                <div class="card-title h5">
-                    Can I login from third-party like Google, Facebook, Twitter etc.?
-                </div>
-                <div class="card-text">
-                    Of course! We have thought about lazy people too!<br/>
-                    When you are at the page to create an account, you can see the options below ;)
-                </div>
-            </div>
-        </div>
-    <div class="card border-light">
-            <div class="card-body">
-                <div class="card-title h5">
-                    Can I update my password?
-                </div>
-                <div class="card-text">
-                    Yes, you can. You have to go to the <a href="#">profile page</a>
-                    and click update password.<br/>
-                    If you're having problems login in, you can always reset your password via email by clicking
-                    <a href="#">Forgot Password</a>
+            <div class="col">
+                <div class="card shadow border-0 rounded h-100">
+                    <img src="{% static "datadump/images/fbpic.png" %}" class="card-img-top" alt="Employee image">
+                    <div class="card-body">
+                        <h4 class="card-title">Eol Nuha</h4>
+                        <h5 class="card-text">Software Developer</h5>
+                        <p class="card-text">
+                            A passionate Python developer, his experience includes backend development.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card border-light">
-            <div class="card-body">
-                <div class="card-title h5">
-                    Can I change my avatar?
-                </div>
-                <div class="card-text">
-                    Sure, you can! All you have to do is to visit your profile page, and click Edit Profile button.<br/>
-                    There, you have to select a file and then click Update.<br/> Voilaaa!
+            <div class="col">
+                <div class="card shadow border-0 rounded h-100">
+                    <img src="{% static "datadump/images/fbpic.png" %}" class="card-img-top" alt="Employee image">
+                    <div class="card-body">
+                        <h3 class="card-title">Teuta Hoti</h3>
+                        <h5 class="card-text">Software Developer</h5>
+                        <p class="card-text">
+                            She likes to make sure that the code is clean, reusable, and consistent across the site.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card border-light">
-            <div class="card-body">
-                <div class="card-title h5">
-                    Can I login from third-party like Google, Facebook, Twitter etc.?
-                </div>
-                <div class="card-text">
-                    Of course! We have thought about lazy people too!<br/>
-                    When you are at the page to create an account, you can see the options below ;)
+            <div class="col">
+                <div class="card shadow border-0 h-100">
+                    <img src="{% static "datadump/images/fbpic.png" %}" class="card-img-top" alt="Employee image">
+                    <div class="card-body">
+                        <h3 class="card-title text-normal">Dren Ibrahimi</h3>
+                        <h5 class="card-title">Software Developer</h5>
+                        <p class="card-text">A Python Developer focused on crafting great web experiences.</p>
+                    </div>
                 </div>
             </div>
         </div>
