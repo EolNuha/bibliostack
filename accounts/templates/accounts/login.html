@@ -14,12 +14,18 @@
         </div>
     {% endif %}
     <main class="main">
+        <a href="{% url 'datadump:post_list' %}">
+            <img src="{% static 'accounts/img/home.png' %}" class="sticky-top" width="70px" height="70px" alt="Home Button">
+        </a>
         <div class="form-container">
             <section class="wrapper">
                 <div class="heading">
                     <h1 class="text text-large">Log In</h1>
-                    <p class="text text-normal">New user? <span><a href="{% url 'register' %}"
-                                                                   class="text text-links">Create an account</a></span>
+                    <p class="text text-normal">
+                        New user?
+                        <span>
+                            <a href="{% url 'register' %}" class="text text-links">Create an account</a>
+                        </span>
                     </p>
                 </div>
                 <form name="login" class="form" method="POST">

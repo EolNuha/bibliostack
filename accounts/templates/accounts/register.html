@@ -4,7 +4,6 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'accounts/css/login-form.css' %}">
     {% if form.errors %}
-
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {% for field in form %}
                 {% if field.errors %}
@@ -20,6 +19,9 @@
         </div>
     {% endif %}
     <main class="main">
+        <a href="{% url 'datadump:post_list' %}">
+            <img src="{% static 'accounts/img/home.png' %}" class="sticky-top" width="70px" height="70px" alt="Home Button">
+        </a>
         <div class="form-container">
             <section class="wrapper">
                 <div class="heading">
